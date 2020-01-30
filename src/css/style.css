@@ -1,0 +1,430 @@
+/*
+ * Cascading Style Sheet Document
+ * Author:		Admentus
+ * Design:		GhostyDark
+ */
+
+:lang(en) :lang(de),:lang(en) :lang(sv),:lang(en) :lang(nl),
+:lang(de) :lang(en),:lang(de) :lang(sv),:lang(de) :lang(nl),
+:lang(sv) :lang(de),:lang(sv) :lang(en),:lang(sv) :lang(nl),
+:lang(nl) :lang(de),:lang(nl) :lang(en),:lang(nl) :lang(sv)
+{
+	display:				none;
+}
+
+body{
+	margin:					0;
+	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1);
+}
+
+body, select, option, textarea, input {
+	font-family:			Play, sans-serif;
+}
+
+a, select {
+	-webkit-tap-highlight-color:rgba(255,255,255,0);
+	-webkit-focus-ring-color:rgba(0,0,0,0);
+}
+
+textarea {
+	outline:				0;
+	border:					2px dashed #333;
+	margin:					10px;
+	padding:				10px;
+	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1),border-color .3s cubic-bezier(.4, 0, .22, 1);
+	cursor:					default;
+	height:					500px;
+	width:					40%;
+	text-transform:			uppercase;
+	resize:					none;
+}
+
+textarea:hover {
+	cursor:					pointer;
+}
+
+textarea:hover,textarea:focus {
+	background:				#EEE;
+}
+
+textarea:focus {
+	background:				transparent;
+	border-color:			rgb(80, 130, 220);
+	cursor:					text;
+}
+
+@media (max-width:605px){
+	textarea{
+		width: 				80%;
+		margin-left:		0;
+		margin-right:		0;
+	}
+	textarea:nth-child(2){
+		margin-top: 		10px;
+	}
+}
+
+#wrapper {
+	width:					100%;
+	max-width:				950px;
+	margin:					auto;
+}
+
+#textarea-wrapper {
+	text-align:				center;
+	margin-top:				10px;
+}
+
+#buttons{
+	margin:					10px 0;
+}
+
+#buttons > a, .drop-button {
+	cursor:					pointer;
+	color:					#000;
+	padding:				12px 12px 12px 8px;
+	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1);
+	font-size:				18px;
+	border-radius:			50px;
+}
+
+#buttons > a:hover, .drop-button:hover, .drop-button.active {
+	background:				#EEE;
+}
+
+#buttons a svg, .drop-button svg{
+	fill: 					#000;
+	position:				relative;
+	top:					6px;
+}
+
+.drop-button svg{
+	pointer-events:			none;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+#dropdown_language {
+	transition: visibility 0s .3s,opacity .3s cubic-bezier(.4,0,.22,1);
+	visibility: hidden;
+	opacity: .001;
+	position: absolute;
+	left: 25px;
+	top: 55px;
+	background-color: #f1f1f1;
+	min-width: 140px;
+	z-index: 1;
+	text-align: left;
+	font-size:18px;
+}
+
+#dropdown_language a {
+	color:					#000;
+	padding: 				12px 16px;
+	text-decoration: 		none;
+	display: 				block;
+	cursor:					pointer;
+	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1);
+}
+
+#dropdown_language a:hover {background-color: #ddd}
+#dropdown_language.show {visibility:visible;opacity:1;transition-delay:0s}
+
+#change_language svg, #dark_mode svg {
+	margin-left:			5px;
+}
+
+#offset_button {
+	font-size:				18px;
+	cursor:					pointer;
+	background:				rgb(50, 100, 200);
+	color:					#FFF;
+	padding:				12px;
+	position:				fixed;
+	bottom:					15px;
+	right:					15px;
+	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1);
+}
+
+#offset_button:hover {
+	background:				rgb(30, 80, 180);
+}
+
+.swap_space, #swap_select {
+	cursor:					pointer;
+	color:					#000;
+	padding:				10px 10px 10px 6px;
+	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1);
+	font-size:				20px;
+	border-radius:			50%;
+	margin-left:			3px;
+	position:				relative;
+	top:					2px;
+}
+
+#swap_select {
+	top:					-55px;
+	left:					210px;
+	padding:				8px 10px 8px 6px;
+}
+
+.swap_space[data-value="off"], #swap_select {
+	background:				transparent;
+}
+
+.swap_space[data-value="off"]:hover, #swap_select:hover {
+	background:				#EEE;
+}
+
+.swap_space[data-value="on"] {
+	background:				#DDD;
+}
+
+.swap_space[data-value="on"]:hover {
+	background:				#CCC;
+}
+
+.swap_space svg, #swap_select svg {
+	position:				relative;
+	top:					5px;
+	left:					2px;
+}
+
+h1 {
+	text-align:				center;
+	font-size:				30px;
+	letter-spacing:			-1px;
+	line-height:			35px;
+	color:					#FFF;
+	background:				rgb(50, 100, 200);
+	padding:				10px;
+	margin:					0 auto;
+	max-width:				950px;
+}
+
+main {
+	text-align:				center;
+}
+
+#buttons a, .swap_space, #swap_select {
+	-webkit-user-select:	none;
+	-moz-user-select:		none;
+	-ms-user-select:		none;
+	user-select:			none;
+}
+
+[type='text'] {
+	cursor:					pointer;
+	border:					2px solid #333;
+	outline:				0;
+	padding:				5px;
+	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1), border-color .3s cubic-bezier(.4, 0, .22, 1);
+	text-transform:			uppercase;
+	max-width:				100px;
+	margin:					auto 2px;
+}
+
+[type='text']:hover,[type='text']:focus {
+	background:				#EEE;
+}
+
+[type='text']:hover {
+	cursor:					pointer;
+}
+
+[type='text']:focus {
+	background:				transparent;
+	border-color:			rgb(80, 130, 220);
+	cursor:					text;
+}
+
+#offset_div div {
+	margin-bottom:			20px;
+}
+
+#offset_div span {
+	color:					#666;
+	margin-right:			20px;
+}
+
+.offset{
+	margin-left:			5px;
+	margin-right:			15px;
+}
+
+.offset_condition_from{
+	margin-left:			5px;
+	margin-right:			15px;
+}
+
+.offset_condition_to{
+	margin-left:			5px;
+}
+
+select {
+	cursor:					pointer;
+	font-size:				16px;
+	border:					0;
+	outline:				0;
+	padding:				10px;
+	-webkit-appearance:		none;
+	-moz-appearance:		none;
+	appearance:				none;
+	background:				url(../svg/arrow-down.svg) no-repeat 99% #EEE;
+	display:				block;
+	margin:					0 auto;
+	max-width:				360px;
+	width:					100%;
+	transition: 			background-color .3s cubic-bezier(.4, 0, .22, 1);
+}
+
+select:hover {
+	background-color:		#DDD;
+}
+
+select .presetHeader {
+	font-weight:			700;
+}
+
+select option[value="None"].presetTitle {
+	font-style:				italic; 
+	background:				#FFF;
+}
+
+select option[value="None"] {
+	background-color:		#DDD;
+	color:					#000;
+}
+
+option {
+	background:				#FFF;
+}
+
+option[disabled] {
+	background:				#EEE;
+}
+
+footer {
+	background:				#EEE;
+	padding:				10px;
+	text-align:				center;
+	margin:					0 auto 15px auto;
+	max-width:				400px;
+	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1);
+}
+
+@font-face {
+	font-family:			'Play';
+	src: 					url('../font/play-regular.woff2') format('woff2');
+	src: 					url('../font/play-regular.woff') format('woff');
+}
+
+@font-face {
+	font-family:			'Play';
+	src:					url('../font/play-bold.woff2') format('woff2');
+	src:					url('../font/play-bold.woff') format('woff');
+	font-weight:			700;
+}
+
+
+
+/* Dark Mode */
+
+.dark body {
+	background-color:		#121212;
+	color:					#FFF;
+}
+
+.dark textarea {
+	background-color:		#121212;
+	color:					#FFF;
+	border-color:			#DDD;
+}
+
+.dark [type='text'] {
+	background-color:		#121212;
+	color:					#FFF;
+	border-color:			#DDD;
+}
+
+.dark textarea:hover,.dark [type='text']:hover {
+	background-color:		#212121;
+}
+
+.dark textarea:focus,.dark [type='text']:focus {
+	background-color:		#121212;
+	border-color:			rgb(80, 130, 220)
+}
+
+.dark #buttons a svg, .dark .swap_space, .dark #swap_select svg {
+	fill: 					#FFF;
+}
+
+.dark #buttons a {
+	color:					#FFF;
+}
+
+.dark #buttons > a:hover, .dark .drop-button:hover , .dark .swap_space:hover, .dark #swap_select, .dark .drop-button.active {
+	background:				#212121;
+}
+
+.dark .swap_space[data-value="off"], .dark #swap_select {
+	background:				transparent;
+}
+
+.dark .swap_space[data-value="off"]:hover, .dark #swap_select:hover {
+	background:				#212121;
+}
+
+.dark .swap_space[data-value="on"] {
+	background:				#292929;
+}
+
+.dark .swap_space[data-value="on"]:hover {
+	background:				#333;
+}
+
+.dark footer {
+	background:				#212121;
+	color:					#FFF;
+}
+
+.dark select {
+	background:				url(../svg/arrow-down-dark.svg) no-repeat 99% #222;
+	color:					#FFF;
+}
+
+.dark select:hover {
+	background-color:		#333;
+}
+
+.dark option {
+	background:				#121212
+}
+
+.dark select option[value="None"] {
+	background-color:		#000;
+	color:					#FFF;
+}
+
+.dark option[disabled] {
+	background:				#090909;
+}
+
+.dark select option[value="None"].presetTitle {
+	background:				#121212;
+}
+
+.dark #offset_div span {
+	color:					#AAA;
+}
+
+.dark #dropdown_language a {
+	background-color:		#222
+}
+.dark #dropdown_language a:hover {
+	background-color:		#333
+}
