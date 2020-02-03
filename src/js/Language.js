@@ -6,8 +6,10 @@ var Language = {   // Start Static Class: Language
     // Class Variables
     html: null,
     button: null,
-    dropdown: null,
+    dropDown: null,
+    dropDownDiv: null,
     title: null,
+    clickedOnDropDown: false,
     
     
     
@@ -15,6 +17,28 @@ var Language = {   // Start Static Class: Language
     
     // Functions to run when the webpage is loaded (all HTML-code is executed)
     init: function() {   // Start Function: init
+        
+        Language.title = document.getElementById("change_language").title;
+        Language.button = document.getElementById("change_language");
+        Language.dropDown = document.getElementById("dropdown_language");
+        Language.dropDownDiv = document.getElementsByClassName("dropdown")[0];
+        
+        Event.add(Language.button, "click", Language.toggleLanguagesList);
+        
+        Event.add(document.getElementById("english_language"), "click", function() { Language.apply("en"); Language.localizeOffsets(); } );
+        Event.add(document.getElementById("german_language"), "click", function() { Language.apply("de"); Language.localizeOffsets(); } );
+        Event.add(document.getElementById("dutch_language"), "click", function() { Language.apply("nl"); Language.localizeOffsets(); } );
+        Event.add(document.getElementById("swedish_language"), "click", function() { Language.apply("sv"); Language.localizeOffsets(); } );
+        
+        Language.apply(Language.get());
+        
+        //Event.add(document.body, "click", hideOnClickOutside);
+        
+    }, // End Function: init
+    
+    
+    
+    immediate: function() {    // Start Function: immediate
         
         Language.html = document.documentElement;
         
@@ -28,47 +52,45 @@ var Language = {   // Start Static Class: Language
             console.log(err.message);
         }
         
-        switch(Language.get()) {
-            case "de":
-                Language.applyGerman();
-                break;
-            case "nl":
-                Language.applyDutch();
-                break;
-            case "sv":
-                Language.applySwedish();
-                break;
-            default:
-                Language.applyEnglish();
-                break;
-        }
-        
-        Language.title = document.getElementById("change_language").title;
-        Language.button = document.getElementById("change_language");
-        Language.dropDown = document.getElementById("dropdown_language");
-        
-        Event.add(Language.button, "click", Language.toggleLanguagesList);
-        Event.add(document.getElementById("english_language"), "click", Language.applyEnglish);
-        Event.add(document.getElementById("german_language"), "click", Language.applyGerman);
-        Event.add(document.getElementById("dutch_language"), "click", Language.applyDutch);
-        Event.add(document.getElementById("swedish_language"), "click", Language.applySwedish);
-        
-    }, // End Function: init
+    }, // End Function: immediate
     
     
     
-    set: function(language)   { Language.html.lang = language; },   // Function: setLanguage
-    get: function()           { return Language.html.lang; },       // Function: getLanguage
+    set: function(language)     { Language.html.lang = language; },         // Function: setLanguage
+    get: function()             { return Language.html.lang; },             // Function: getLanguage
     
     
     
     toggleLanguagesList: function() {    // Start Function: toggleLanguagesList
         
-        console.log(this);
         Language.dropDown.classList.toggle("show");
 		Language.button.classList.toggle("active");
         
+        if (Language.button.className == "drop-button active") {
+            Event.add(Language.dropDownDiv, "click", function() { Language.clickedOnDropDown = true; } );
+            Event.add(document.body, "click", Language.hideLanguagesList);
+        }
+        else {
+            Event.remove(Language.dropDownDiv, "click", function() { Language.clickedOnDropDown = true; } );
+            Event.remove(document.body, "click", Language.hideLanguagesList);
+        }
+        
     },  // End Function: toggleLanguagesList
+    
+    
+    
+    hideLanguagesList: function() {   // Start Function: hideLanguagesList
+        
+        if (!Language.clickedOnDropDown) {
+            Language.dropDown.className = "";
+            Language.button.className = "drop-button";
+            Event.remove(Language.dropDownDiv, "click", function() { Language.clickedOnDropdown = true; } );
+            Event.remove(document.body, "click", Language.hideLanguagesList);
+        }
+        
+        Language.clickedOnDropDown = false;
+        
+    }, // End Function: hideLanguagesList
     
     
     
@@ -77,6 +99,61 @@ var Language = {   // Start Static Class: Language
     // ----------------- //
     
     apply: function(lang) {   // Start Function: apply
+        
+		Language.dropDown.className = "";
+        Language.button.className = "drop-button";
+        Language.clickedOnDropDown = false;
+        
+        switch(lang) {
+            case "de":
+                document.getElementById("change_language").title = "Sprache ändern";
+                document.getElementById("dark_mode").title = "Nachtmodus (de)aktivieren";
+                document.getElementById("add_offset").title = "Offset hinzufügen";
+                document.getElementById("remove_offset").title = "Offset entfernen";
+                document.getElementById("presetTitleFrom").textContent = "Spiel für Input wählen";
+                document.getElementById("presetTitleTo").textContent = "Spiel für Output wählen";
+                document.getElementById("swap_select").title = "Ausgewählte Spiele im Input und Output tauschen";
+				document.getElementById("search_bar").placeholder = "Suchen...";
+                document.getElementById("pre_code_textarea").placeholder = "Input...";
+                document.getElementById("post_code_textarea").placeholder = "Output...";
+                break;
+            case "nl":
+                document.getElementById("change_language").title = "Verander taal";
+                document.getElementById("dark_mode").title = "Wissel donkere modus";
+                document.getElementById("add_offset").title = "Voeg avstand toe";
+                document.getElementById("remove_offset").title = "Verwijder afstand";
+                document.getElementById("swap_select").title = "Wissel de selecteerde spelen om tussen te conventeren";
+                document.getElementById("presetTitleFrom").textContent = "Selecteer een spel om van te conventeren";
+                document.getElementById("presetTitleTo").textContent = "Selecteer een spel om naar te conventeren";
+				document.getElementById("search_bar").placeholder = "Search...";
+                document.getElementById("pre_code_textarea").placeholder = "Invoer...";
+                document.getElementById("post_code_textarea").placeholder = "Uitvoer...";
+                break;
+            case "sv":
+                document.getElementById("change_language").title = "\u00C4ndra språk";
+                document.getElementById("dark_mode").title = "Växla dark mode";
+                document.getElementById("add_offset").title = "Tilläga offset";
+                document.getElementById("remove_offset").title = "Radera offset";
+                document.getElementById("swap_select").title = "Växla valda spel att konventera mellan ";
+                document.getElementById("presetTitleFrom").textContent = "Välj att spel att konventera från";
+                document.getElementById("presetTitleTo").textContent = "Välj ett spel att konventera till";
+				document.getElementById("search_bar").placeholder = "Search...";
+                document.getElementById("pre_code_textarea").placeholder = "Inmattning...";
+                document.getElementById("post_code_textarea").placeholder = "Utmattning...";
+                break;
+            default:
+                document.getElementById("change_language").title = "Change language";
+                document.getElementById("dark_mode").title = "Toggle dark mode";
+                document.getElementById("add_offset").title = "Add offset";
+                document.getElementById("remove_offset").title = "Remove offset";
+                document.getElementById("swap_select").title = "Swap selected games to convert between";
+                document.getElementById("presetTitleFrom").textContent = "Select a game to convert from";
+                document.getElementById("presetTitleTo").textContent = "Select a game to convert to";
+				document.getElementById("search_bar").placeholder = "Search...";
+                document.getElementById("pre_code_textarea").placeholder = "Input...";
+                document.getElementById("post_code_textarea").placeholder = "Output...";
+                break;
+        }
         
         try {
             localStorage.language = lang;
@@ -87,64 +164,56 @@ var Language = {   // Start Static Class: Language
         
         Language.set(lang);
         
-        console.log(Language.get());
-        
     }, // End Function: apply
     
     
     
-    applyEnglish: function() {   // Start Function: applyEnglish
+    localizeOffsets: function() {   // Start Function: localizeOffsets
         
-        Language.apply("en");
-        console.log("English");
-		
-		document.getElementById("change_language").title = "Change language";
-		document.getElementById("dark_mode").title = "Toogle dark mode";
-		document.getElementById("add_offset").title = "Add offset";
-		document.getElementById("remove_offset").title = "Remove offset";
-		document.getElementById("presetTitleFrom").textContent = "Select a game to convert from";
-		document.getElementById("presetTitleTo").textContent = "Select a game to convert to";
-		document.getElementById("swap_select").title = "Swap selected games to convert between";
+        for (var i=0; i<document.getElementById("offset_div").getElementsByTagName("div").length; i++) {
+            
+            document.getElementsByClassName("offset_lang")[i].textContent = "";
+            
+            if (Language.get() == "en") {
+                document.getElementsByClassName("offset_lang")[i].textContent += "Offset";
+                document.getElementsByClassName("offset_value_lang")[i].textContent = "Value:";
+                document.getElementsByClassName("offset_from_lang")[i].textContent = "From:";
+                document.getElementsByClassName("offset_to_lang")[i].textContent = "To:";
+                document.getElementsByClassName("swap_space")[i].title = "Swap memory addresses: 80 " + "\u2194" + " 81";
+            }
+            else if (Language.get() == "de") {
+                document.getElementsByClassName("offset_lang")[i].textContent += "Offset";
+                document.getElementsByClassName("offset_value_lang")[i].textContent = "Wert:";
+                document.getElementsByClassName("offset_from_lang")[i].textContent = "Von:";
+                document.getElementsByClassName("offset_to_lang")[i].textContent = "Nach:";
+                document.getElementsByClassName("swap_space")[i].title = "Speicheradressen tauschen: 80 " + "\u2194" + " 81";
+            }
+            else if (Language.get() == "nl") {
+                document.getElementsByClassName("offset_lang")[i].textContent += "Afstand";
+                document.getElementsByClassName("offset_value_lang")[i].textContent = "Waarde:";
+                document.getElementsByClassName("offset_from_lang")[i].textContent = "Van:";
+                document.getElementsByClassName("offset_to_lang")[i].textContent = "Tot:";
+                document.getElementsByClassName("swap_space")[i].title = "Wissel plaats voor code geheugen regels: 80 " + "\u2194" + " 81";
+            }
+            else if (Language.get() == "sv") {
+                document.getElementsByClassName("offset_lang")[i].textContent += "Offset";
+                document.getElementsByClassName("offset_value_lang")[i].textContent = "Värde:";
+                document.getElementsByClassName("offset_from_lang")[i].textContent = "Från:";
+                document.getElementsByClassName("offset_to_lang")[i].textContent = "Till:";
+                document.getElementsByClassName("swap_space")[i].title = "Växla plats för kod minne linjer: 80 " + "\u2194" + " 81";
+            }
         
-    }, // End Function: applyEnglish
-    
-    
-    
-    applyGerman: function() {   // Start Function: applyGerman
+            if (i > 9)
+                document.getElementsByClassName("offset_lang")[i].textContent += " " + (i+1);
+            else document.getElementsByClassName("offset_lang")[i].textContent += " 0" + (i+1);
+            
+        }
         
-        Language.apply("de");
-        console.log("Deutsch");
-		
-		document.getElementById("change_language").title = "Sprache ändern";
-		document.getElementById("dark_mode").title = "Nachtmodus (de)aktivieren";
-		document.getElementById("add_offset").title = "Offset hinzufügen";
-		document.getElementById("remove_offset").title = "Offset entfernen";
-		document.getElementById("presetTitleFrom").textContent = "Spiel für Input wählen";
-		document.getElementById("presetTitleTo").textContent = "Spiel für Output wählen";
-		document.getElementById("swap_select").title = "Ausgewählte Spiele im Input und Output tauschen";
-        
-    }, // End Function: applyGerman
-    
-    
-    
-    applyDutch: function() {   // Start Function: applyDutch
-        
-        Language.apply("nl");
-        console.log("Nederlands");
-        
-    }, // End Function: applyDutch
-    
-    
-    
-    applySwedish: function() {   // Start Function: applySwedish
-        
-        Language.apply("sv");
-        console.log("Svenska");
-        
-    }, // End Function: applySwedish
+    }, // End Function: localizeOffsets
     
 }; // End Static Class: Language
 
 
 
 Event.add(window, "DOMContentLoaded", Language.init);			    // Active function initDOMLoaded when the page is DOM Content is loaded
+Language.immediate();                                               // Run immediate contents

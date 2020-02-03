@@ -82,7 +82,23 @@
 				
 				<br>
 				<div id="offset_div"></div>
+				
+				
 				<br>
+				<div id="select_bar">
+				<input type="text" id="search_bar" placeholder="Search...">
+				<svg id="search_icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 48 48">
+				<path d="M31 28h-1.59l-.55-.55C30.82 25.18 32 22.23 32 19c0-7.18-5.82-13-13-13S6 11.82 6 19s5.82 13 13 13c3.23 0 6.18-1.18 8.45-3.13l.55.55V31l10 9.98L40.98 38 31 28zm-12 0c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9z"/>
+				</svg>
+				</a>
+				<a title="Swap selected games to convert between" id="swap_select">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+				<path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3zm7 14.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/>
+				</svg>
+				</a>
+				</div>
+				
+				<br> <br> <br>
 				
 				<select id="select_preset_from" autocomplete="off">
 					<option value="None" id="presetTitleFrom" class="presetTitle">Select a game to convert from</option>
@@ -135,12 +151,8 @@
 					<option value="Super Mario 64 (VC) (NTSC-U) (NAAE01)">Super Mario 64 (VC) (NTSC-U) (NAAE01)</option>
 					<option value="Super Mario 64 (VC) (PAL) (NAAP01)">Super Mario 64 (VC) (PAL) (NAAP01)</option>
 				</select>
-				
-        <a title="Swap selected games to convert between" id="swap_select">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-				<path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3zm7 14.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/>
-			</svg>
-        </a>
+		
+		<br>
 				
 				<div id="textarea-wrapper">
 					<textarea placeholder="Input..." id="pre_code_textarea"></textarea>

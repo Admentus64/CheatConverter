@@ -27,36 +27,44 @@ var Convert = {   // Start Static Class: Convert
     addOffset: function() {   // Start Function: addOffset
         
         var div = document.createElement("div");
-        var currentNumber = document.getElementById("offset_div").getElementsByTagName("div").length + 1;
-        var elem;
+        var span, elem;
         
-        var span = document.createElement("span");
+        span = document.createElement("span");
+        span.className = "offset_lang";
         div.appendChild(span);
-        if (currentNumber > 9)
-            elem = document.createTextNode("Offset " + currentNumber);
-        else elem = document.createTextNode("Offset 0" + currentNumber);
+        elem = document.createTextNode("");
         span.appendChild(elem);
         
-        elem = document.createTextNode("Value:");
-        div.appendChild(elem);
+        span = document.createElement("span");
+        span.className = "offset_value_lang";
+        div.appendChild(span);
+        elem = document.createTextNode("");
+        span.appendChild(elem);
         
         elem = document.createElement("input");
         elem.type = "text";
         elem.className = "offset";
         elem.maxLength = "7";
-        
         div.appendChild(elem);
         
-        elem = document.createTextNode("From:");
-        div.appendChild(elem);
+        span = document.createElement("span");
+        span.className = "offset_from_lang";
+        div.appendChild(span);
+        elem = document.createTextNode("");
+        span.appendChild(elem);
+        
         elem = document.createElement("input");
         elem.type = "text";
         elem.className = "offset_condition_from";
         elem.maxLength = "8";
         div.appendChild(elem);
         
-        elem = document.createTextNode("To:");
-        div.appendChild(elem);
+        span = document.createElement("span");
+        span.className = "offset_to_lang";
+        div.appendChild(span);
+        elem = document.createTextNode("");
+        span.appendChild(elem);
+        
         elem = document.createElement("input");
         elem.type = "text";
         elem.className = "offset_condition_to";
@@ -64,7 +72,7 @@ var Convert = {   // Start Static Class: Convert
         div.appendChild(elem);
         
         div.innerHTML += `
-            <a title="Swap space for code memory lines: 80 &#x2194; 81" class="swap_space" data-value="off">
+            <a class="swap_space" data-value="off">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path fill="none" d="M0 0h24v24H0V0z"/>
                     <path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
@@ -78,9 +86,9 @@ var Convert = {   // Start Static Class: Convert
         for (var i=0; i<Convert.swap_space_buttons.length; i++)
             Event.add(Convert.swap_space_buttons[i], "click", Convert.toggleButton);
         
+        Language.localizeOffsets();
+        
     }, // End Function: addOffset
-    
-    
     
     removeOffset: function() {   // Start Function: removeOffset
         

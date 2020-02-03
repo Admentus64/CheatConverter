@@ -26,8 +26,35 @@ var Preset = {   // Start Static Class: Preset
         
         for (i=1; i<Preset.select_preset_to.length; i++)
             Preset.select_preset_to[i].disabled = true;
+            
+        Event.add(document.getElementById("search_bar"), "input", Preset.search);
         
     }, // End Function: select
+    
+    
+    
+    search: function() {   // Start Function: search
+        
+        var filter = document.getElementById("search_bar").value.toUpperCase();
+        Preset.searchSelect(filter, Preset.select_preset_from);
+        Preset.searchSelect(filter, Preset.select_preset_to);
+        
+    }, // End Function: search
+    
+    
+    
+    searchSelect: function(filter, select) {   // Start Function: searchSelect
+        
+        for (var i=0; i<select.length; i++) {
+            var option = select[i];
+            var textContent = option.textContent;
+            if (textContent.toUpperCase().indexOf(filter) > -1 && option.value != "None")
+                option.style.display = "";
+            else if (option.value != "None")
+                option.style.display = "none";
+        }
+        
+    }, // End Function: searchSelect
     
     
     

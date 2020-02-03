@@ -12,7 +12,7 @@
 	display:				none;
 }
 
-body{
+body {
 	margin:					0;
 	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1);
 }
@@ -37,6 +37,40 @@ textarea {
 	width:					40%;
 	text-transform:			uppercase;
 	resize:					none;
+}
+
+#search_bar{
+	text-transform:			none;
+	float:					left;
+	padding-left:			15px;
+	border-radius:			25px;
+	font-size:				16px;
+	max-width:				160px;
+	width:					100%;
+}
+
+#select_bar{
+    max-width:				360px;
+	display:				block;
+	margin:					-5px auto -10px auto;
+}
+
+#search_icon{
+	position:				relative;
+	right:					133px;
+	float:					left;
+	z-index:				2;
+	display:none;
+}
+
+#swap_select {
+	cursor:					pointer;
+	color:					#000;
+	padding:				6px 6px 2px 6px;
+	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1);
+	font-size:				20px;
+	border-radius:			50%;
+	float:					right;
 }
 
 textarea:hover {
@@ -98,6 +132,10 @@ textarea:focus {
 	top:					6px;
 }
 
+#select_bar svg{
+	fill:					#000;
+}
+
 .drop-button svg{
 	pointer-events:			none;
 }
@@ -130,8 +168,15 @@ textarea:focus {
 	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1);
 }
 
-#dropdown_language a:hover {background-color: #ddd}
-#dropdown_language.show {visibility:visible;opacity:1;transition-delay:0s}
+#dropdown_language a:hover {
+	background-color:		#DDD
+}
+
+#dropdown_language.show {
+	visibility:				visible;
+	opacity:				1;
+	transition-delay:		0s
+}
 
 #change_language svg, #dark_mode svg {
 	margin-left:			5px;
@@ -153,7 +198,7 @@ textarea:focus {
 	background:				rgb(30, 80, 180);
 }
 
-.swap_space, #swap_select {
+.swap_space {
 	cursor:					pointer;
 	color:					#000;
 	padding:				10px 10px 10px 6px;
@@ -163,12 +208,6 @@ textarea:focus {
 	margin-left:			3px;
 	position:				relative;
 	top:					2px;
-}
-
-#swap_select {
-	top:					-55px;
-	left:					210px;
-	padding:				8px 10px 8px 6px;
 }
 
 .swap_space[data-value="off"], #swap_select {
@@ -187,7 +226,7 @@ textarea:focus {
 	background:				#CCC;
 }
 
-.swap_space svg, #swap_select svg {
+.swap_space svg {
 	position:				relative;
 	top:					5px;
 	left:					2px;
@@ -245,7 +284,7 @@ main {
 	margin-bottom:			20px;
 }
 
-#offset_div span {
+#offset_div span:first-child {
 	color:					#666;
 	margin-right:			20px;
 }
@@ -279,6 +318,7 @@ select {
 	max-width:				360px;
 	width:					100%;
 	transition: 			background-color .3s cubic-bezier(.4, 0, .22, 1);
+	z-index:				2;
 }
 
 select:hover {
@@ -359,7 +399,7 @@ footer {
 	border-color:			rgb(80, 130, 220)
 }
 
-.dark #buttons a svg, .dark .swap_space, .dark #swap_select svg {
+.dark #buttons a svg, .dark .swap_space, .dark #swap_select svg, .dark #select_bar svg {
 	fill: 					#FFF;
 }
 
@@ -425,6 +465,7 @@ footer {
 .dark #dropdown_language a {
 	background-color:		#222
 }
+
 .dark #dropdown_language a:hover {
 	background-color:		#333
 }
