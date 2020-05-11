@@ -70,8 +70,11 @@ var Preset = {   // Start Static Class: Preset
             Preset.disable(this.value);
         }
         
-        Preset.reset(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
-        Preset.selectGameCombo(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+        if (Preset.select_preset_from.value != "None" && Preset.select_preset_to.value != "None")
+            Convert.removeAllOffsets();
+        else Preset.reset(swapSpace);
+        
+        Preset.selectGameCombo(swapSpace);
         
     }, // End Function: select
     
@@ -99,16 +102,32 @@ var Preset = {   // Start Static Class: Preset
     
     
     
-    reset: function(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: reset
+    reset: function(swapSpace) {   // Start Function: reset
         
         Convert.fillPresets(1);
         
-        offset_textfield[0].value = "";
-        offset_condition_from_textfield[0].value = "";
-        offset_condition_to_textfield[0].value = "";
+        document.getElementById("offset_div").getElementsByClassName("offset")[0].value = "";
+        document.getElementById("offset_div").getElementsByClassName("offset_condition_from")[0].value = "";
+        document.getElementById("offset_div").getElementsByClassName("offset_condition_to")[0].value = "";
         swapSpace[0].setAttribute("data-value", "off");
         
     }, // End Function: reset
+    
+    
+    
+    addOffset: function(value, start, end) {   // Start Function: addOffset
+        
+        Convert.addOffset();
+        
+        var offset_textfield = document.getElementById("offset_div").getElementsByClassName("offset");
+        var offset_condition_from_textfield = document.getElementById("offset_div").getElementsByClassName("offset_condition_from");
+        var offset_condition_to_textfield = document.getElementById("offset_div").getElementsByClassName("offset_condition_to");
+        
+        offset_textfield[offset_textfield.length-1].value = value;
+        offset_condition_from_textfield[offset_condition_from_textfield.length-1].value = start;
+        offset_condition_to_textfield[offset_condition_to_textfield.length-1].value = end;
+        
+    }, // End Function: addOffset
     
     
     
@@ -128,7 +147,7 @@ var Preset = {   // Start Static Class: Preset
                 Preset.select_preset_to[i].disabled = false;
                 
             // TEMP DISABLE
-            //if (Preset.select_preset_to[i].value.indexOf("(VC)") >= 0)
+            // if (Preset.select_preset_to[i].value.indexOf("(VC)") >= 0)
             //    Preset.select_preset_to[i].disabled = true;
         }
         
@@ -136,7 +155,7 @@ var Preset = {   // Start Static Class: Preset
     
     
     
-    selectGameCombo: function(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: selectGameCombo
+    selectGameCombo: function(swapSpace) {   // Start Function: selectGameCombo
         
         // ----------------------- //
         // --- Ocarina of Time --- //
@@ -144,104 +163,104 @@ var Preset = {   // Start Static Class: Preset
         
         if (Preset.selectFrom() == "Ocarina of Time (GC) (NTSC-U) (D43E01)") {
             if (Preset.selectTo() == "Ocarina of Time (GC) (PAL) (D43P01)")
-                us_regOotGC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
-            if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (PZLP01)")
-                us_regOotGC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
-            if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (PZLP01)")
-                us_regOotGC_to_pal_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_regOotGC_to_pal_regOotGC(swapSpace);
+            if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (PZLE01)")
+                us_regOotGC_to_us_ootGC(swapSpace);
+            if (Preset.selectTo() == "Ocarina of Time (GC) (PAL) (PZLP01)")
+                us_regOotGC_to_pal_ootGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (VC) (NTSC-U) (NACE01)")
-                us_regOotGC_to_us_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_regOotGC_to_us_ootVC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (VC) (PAL) (NACP01)")
-                us_regOotGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_regOotGC_to_pal_ootVC(swapSpace);
             if (Preset.selectTo() == "Master Quest (GC) (NTSC-U) (D43E01)")
-                us_regOotGC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
-            if (Preset.selectTo() == "Master Quest (GC) (NTSC-U) (D43P01)")
-                us_regOotGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_regOotGC_to_us_mqOotGC(swapSpace);
+            if (Preset.selectTo() == "Master Quest (GC) (PAL) (D43P01)")
+                us_regOotGC_to_pal_mqOotGC(swapSpace);
         }
         
         if (Preset.selectFrom() == "Ocarina of Time (GC) (PAL) (D43P01)") {
             if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (D43E01)")
-                pal_regOotGC_to_us_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
-            if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (PZLP01)")
-                pal_regOotGC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_regOotGC_to_us_regOotGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (PZLE01)")
-                pal_regOotGC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_regOotGC_to_us_ootGC(swapSpace);
+            if (Preset.selectTo() == "Ocarina of Time (GC) (PAL) (PZLP01)")
+                pal_regOotGC_to_pal_ootGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (VC) (NTSC-U) (NACE01)")
-                pal_regOotGC_to_us_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_regOotGC_to_us_ootVC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (VC) (PAL) (NACP01)")
-                pal_regOotGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_regOotGC_to_pal_ootVC(swapSpace);
             if (Preset.selectTo() == "Master Quest (GC) (NTSC-U) (D43E01)")
-                pal_regOotGC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_regOotGC_to_us_mqOotGC(swapSpace);
             if (Preset.selectTo() == "Master Quest (GC) (PAL) (D43P01)")
-                pal_regOotGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_regOotGC_to_pal_mqOotGC(swapSpace);
         }
         
         if (Preset.selectFrom() == "Ocarina of Time (GC) (NTSC-U) (PZLE01)") {
             if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (D43E01)")
-                us_ootGC_to_us_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_ootGC_to_us_regOotGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (PAL) (D43P01)")
-                us_ootGC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
-            if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (PZLE01)")
-                us_ootGC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_ootGC_to_pal_regOotGC(swapSpace);
+            if (Preset.selectTo() == "Ocarina of Time (GC) (PAL) (PZLP01)")
+                us_ootGC_to_pal_ootGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (VC) (NTSC-U) (NACE01)")
-                us_ootGC_to_us_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_ootGC_to_us_ootVC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (VC) (PAL) (NACP01)")
-                us_ootGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_ootGC_to_pal_ootVC(swapSpace);
             if (Preset.selectTo() == "Master Quest (GC) (NTSC-U) (D43E01)")
-                us_ootGC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_ootGC_to_us_mqOotGC(swapSpace);
             if (Preset.selectTo() == "Master Quest (GC) (PAL) (D43P01)")
-                us_ootGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_ootGC_to_pal_mqOotGC(swapSpace);
         }
         
         if (Preset.selectFrom() == "Ocarina of Time (GC) (PAL) (PZLP01)") {
             if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (D43E01)")
-                pal_ootGC_to_us_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_ootGC_to_us_regOotGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (PAL) (D43P01)")
-                pal_ootGC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_ootGC_to_pal_regOotGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (PZLE01)")
-                pal_ootGC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_ootGC_to_us_ootGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (VC) (NTSC-U) (NACE01)")
-                pal_ootGC_to_us_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_ootGC_to_us_ootVC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (VC) (PAL) (NACP01)")
-                pal_ootGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_ootGC_to_pal_ootVC(swapSpace);
             if (Preset.selectTo() == "Master Quest (GC) (NTSC-U) (D43E01)")
-                pal_ootGC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_ootGC_to_us_mqOotGC(swapSpace);
             if (Preset.selectTo() == "Master Quest (GC) (PAL) (D43P01)")
-                pal_ootGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_ootGC_to_pal_mqOotGC(swapSpace);
         }
         
         if (Preset.selectFrom() == "Ocarina of Time (VC) (NTSC-U) (NACE01)") {
             if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (D43E01)")
-                us_ootVC_to_us_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_ootVC_to_us_regOotGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (PAL) (D43P01)")
-                us_ootVC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_ootVC_to_pal_regOotGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (PZLE01)")
-                us_ootVC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_ootVC_to_us_ootGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (PAL) (PZLP01)")
-                us_ootVC_to_pal_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_ootVC_to_pal_ootGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (VC) (PAL) (NACP01)")
-                us_ootVC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_ootVC_to_pal_ootVC(swapSpace);
             if (Preset.selectTo() == "Master Quest (GC) (NTSC-U) (D43E01)")
-                us_ootVC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_ootVC_to_us_mqOotGC(swapSpace);
             if (Preset.selectTo() == "Master Quest (GC) (NTSC-U) (D43P01)")
-                us_ootVC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_ootVC_to_pal_mqOotGC(swapSpace);
         }
         
         if (Preset.selectFrom() == "Ocarina of Time (VC) (PAL) (NACP01)") {
             if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (D43E01)")
-                pal_ootVC_to_us_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_ootVC_to_us_regOotGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (PAL) (D43P01)")
-                pal_ootVC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_ootVC_to_pal_regOotGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (PZLE01)")
-                pal_ootVC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_ootVC_to_us_ootGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (PAL) (PZLP01)")
-                pal_ootVC_to_pal_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_ootVC_to_pal_ootGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (VC) (NTSC-U) (NACE01)")
-                pal_ootVC_to_us_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_ootVC_to_us_ootVC(swapSpace);
             if (Preset.selectTo() == "Master Quest (GC) (NTSC-U) (D43E01)")
-                pal_ootVC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_ootVC_to_us_mqOotGC(swapSpace);
             if (Preset.selectTo() == "Master Quest (GC) (NTSC-U) (D43P01)")
-                pal_ootVC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_ootVC_to_pal_mqOotGC(swapSpace);
         }
         
         
@@ -252,36 +271,36 @@ var Preset = {   // Start Static Class: Preset
         
         if (Preset.selectFrom() == "Master Quest (GC) (NTSC-U) (D43E01)") {
             if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (D43E01)")
-                us_mqOotGC_to_us_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_mqOotGC_to_us_regOotGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (PAL) (D43P01)")
-                us_mqOotGC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_mqOotGC_to_pal_regOotGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (PZLE01)")
-                us_mqOotGC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_mqOotGC_to_us_ootGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (PAL) (PZLP01)")
-                us_mqOotGC_to_pal_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_mqOotGC_to_pal_ootGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (VC) (NTSC-U) (NACE01)")
-                us_mqOotGC_to_us_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_mqOotGC_to_us_ootVC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (VC) (PAL) (NACP01)")
-                us_mqOotGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_mqOotGC_to_pal_ootVC(swapSpace);
             if (Preset.selectTo() == "Master Quest (GC) (NTSC-U) (D43P01)")
-                us_mqOotGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_mqOotGC_to_pal_mqOotGC(swapSpace);
         }
         
         if (Preset.selectFrom() == "Master Quest (GC) (PAL) (D43P01)") {
             if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (D43E01)")
-                pal_mqOotGC_to_us_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_mqOotGC_to_us_regOotGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (PAL) (D43P01)")
-                pal_mqOotGC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_mqOotGC_to_pal_regOotGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (NTSC-U) (PZLE01)")
-                pal_mqOotGC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_mqOotGC_to_us_ootGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (GC) (PAL) (PZLP01)")
-                pal_mqOotGC_to_pal_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_mqOotGC_to_pal_ootGC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (VC) (NTSC-U) (NACE01)")
-                pal_mqOotGC_to_us_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_mqOotGC_to_us_ootVC(swapSpace);
             if (Preset.selectTo() == "Ocarina of Time (VC) (PAL) (NACP01)")
-                pal_mqOotGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_mqOotGC_to_pal_ootVC(swapSpace);
             if (Preset.selectTo() == "Master Quest (GC) (NTSC-U) (D43E01)")
-                pal_mqOotGC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_mqOotGC_to_us_mqOotGC(swapSpace);
         }
         
         
@@ -292,38 +311,38 @@ var Preset = {   // Start Static Class: Preset
         
         if (Preset.selectFrom() == "Majora's Mask (GC) (NTSC-U) (PZLE01)") {
             if (Preset.selectTo() == "Majora's Mask (GC) (PAL) (PZLP01)")
-                us_mmGC_to_pal_mmGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_mmGC_to_pal_mmGC(swapSpace);
             if (Preset.selectTo() == "Majora's Mask (VC) (NTSC-U) (NARE01)")
-                us_mmGC_to_us_mmVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_mmGC_to_us_mmVC(swapSpace);
             if (Preset.selectTo() == "Majora's Mask (VC) (PAL) (NARP01)")
-                us_mmGC_to_pal_mmVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_mmGC_to_pal_mmVC(swapSpace);
         }
         
         if (Preset.selectFrom() == "Majora's Mask (GC) (PAL) (PZLP01)") {
             if (Preset.selectTo() == "Majora's Mask (GC) (NTSC-U) (PZLE01)")
-                us_mmGC_to_us_mmGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_mmGC_to_us_mmGC(swapSpace);
             if (Preset.selectTo() == "Majora's Mask (VC) (NTSC-U) (NARE01)")
-                us_mmGC_to_us_mmVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_mmGC_to_us_mmVC(swapSpace);
             if (Preset.selectTo() == "Majora's Mask (VC) (PAL) (NARP01)")
-                us_mmGC_to_pal_mmVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_mmGC_to_pal_mmVC(swapSpace);
         }
         
         if (Preset.selectFrom() == "Majora's Mask (VC) (NTSC-U) (NARE01)") {
             if (Preset.selectTo() == "Majora's Mask (GC) (NTSC-U) (PZLE01)")
-                us_mmGC_to_us_mmGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_mmVC_to_us_mmGC(swapSpace);
             if (Preset.selectTo() == "Majora's Mask (GC) (PAL) (PZLP01)")
-                us_mmGC_to_pal_mmGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_mmVC_to_pal_mmGC(swapSpace);
             if (Preset.selectTo() == "Majora's Mask (VC) (PAL) (NARP01)")
-                us_mmGC_to_pal_mmVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_mmVC_to_pal_mmVC(swapSpace);
         }
         
         if (Preset.selectFrom() == "Majora's Mask (VC) (NTSC-U) (NARP01)") {
             if (Preset.selectTo() == "Majora's Mask (GC) (NTSC-U) (PZLE01)")
-                us_mmGC_to_us_mmGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_mmVC_to_us_mmGC(swapSpace);
             if (Preset.selectTo() == "Majora's Mask (GC) (PAL) (PZLP01)")
-                us_mmGC_to_pal_mmGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_mmVC_to_pal_mmGC(swapSpace);
             if (Preset.selectTo() == "Majora's Mask (VC) (NTSC-U) (NARE01)")
-                us_mmGC_to_us_mmVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_mmVC_to_us_mmVC(swapSpace);
         }
         
         
@@ -334,12 +353,79 @@ var Preset = {   // Start Static Class: Preset
         
         if (Preset.selectFrom() == "Super Mario 64 (VC) (NTSC-U) (NAAE01)")
             if (Preset.selectTo() == "Super Mario 64 (VC) (PAL) (NAAP01)")
-                us_sm64VC_to_pal_sm64VC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                us_sm64VC_to_pal_sm64VC(swapSpace);
         if (Preset.selectFrom() == "Super Mario 64 (VC) (PAL) (NAAP01)")
             if (Preset.selectTo() == "Super Mario 64 (VC) (NTSC-U) (NAAE01)")
-                pal_sm64VC_to_us_sm64VC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace);
+                pal_sm64VC_to_us_sm64VC(swapSpace);
         
     }, // End Function: selectGameCombo
+    
+    
+    
+    reverseGameCombo: function() {   // Start Function: reverseGameCombo
+        
+        var offset_textfield = document.getElementById("offset_div").getElementsByClassName("offset");
+        var offset_condition_from_textfield = document.getElementById("offset_div").getElementsByClassName("offset_condition_from");
+        var offset_condition_to_textfield = document.getElementById("offset_div").getElementsByClassName("offset_condition_to");
+        var swapSpace = document.getElementById("offset_div").getElementsByClassName("swap_space");
+        
+        for (var i=0; i<offset_textfield.length; i++) {
+            
+            var offset;
+            var subtract = false;
+        
+            if (offset_textfield[i].value.indexOf("-") >= 0) {
+                offset_textfield[i].value = offset_textfield[i].value.substring(1, offset_textfield[i].value.length);
+                offset = parseInt("0x" + offset_textfield[i].value);
+            }
+            else {
+                offset_textfield[i].value = "-" + offset_textfield[i].value;
+                offset = parseInt("0x" + offset_textfield[i].value.substring(1, offset_textfield[i].value.length));
+                subtract = true;
+            }
+            
+            var offset_from = parseInt("0x" + offset_condition_from_textfield[i].value);
+            var offset_to = parseInt("0x" + offset_condition_to_textfield[i].value);
+            
+            if (subtract) {
+                if (offset_from > 0x80000000 && offset_from < (0x80FFFFFF - offset))
+                    offset_from += offset;
+                else if (offset_from > 0x81000000 && offset_from < (0x81FFFFFF - offset))
+                    offset_from += offset;
+                if (offset_to > 0x80000000 && offset_to < (0x80FFFFFF - offset))
+                    offset_to += offset;
+                else if (offset_to > 0x81000000 && offset_to < (0x81FFFFFF - offset))
+                    offset_to += offset;
+            }
+            else {
+                if (offset_from > (0x80000000 + offset) && offset_from < 0x80FFFFFF)
+                    offset_from -= offset;
+                else if (offset_from > (0x81000000 + offset) && offset_from < 0x81FFFFFF)
+                    offset_from -= offset;
+                if (offset_to > (0x80000000 + offset) && offset_to < 0x80FFFFFF)
+                    offset_to -= offset;
+                else if (offset_to > (0x81000000 + offset) && offset_to < 0x81FFFFFF)
+                    offset_to -= offset;
+            }
+            
+            offset_condition_from_textfield[i].value = offset_from.toString(16);
+            offset_condition_to_textfield[i].value = offset_to.toString(16);
+            
+            if (swapSpace[i].getAttribute("data-value") == "on") {
+                //console.log(offset_condition_from_textfield[i].value + " - " + offset_condition_from_textfield[i].value.substring(0, 2).indexOf("80"));
+                if (offset_condition_from_textfield[i].value.substring(0, 2).indexOf("80") >= 0) {
+                    offset_condition_from_textfield[i].value = offset_condition_from_textfield[i].value.replace("80", "81");
+                    offset_condition_to_textfield[i].value = offset_condition_to_textfield[i].value.replace("80", "81");
+                }
+                else {
+                    offset_condition_from_textfield[i].value = offset_condition_from_textfield[i].value.replace("81", "80");
+                    offset_condition_to_textfield[i].value = offset_condition_to_textfield[i].value.replace("81", "80");
+                }
+            }
+        
+        }
+    
+    } // End Function: reverseGameCombo
     
 }; // End Static Class: Preset
 
@@ -360,7 +446,7 @@ Event.add(window, "DOMContentLoaded", Preset.init);					        // Active functi
 
 
 // Ocarina of Time (GC) (NTSC-U) (D43E01) -> Ocarina of Time (GC) (PAL) (D43P01)
-function us_regOotGC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_regOotGC_to_pal_regOotGC
+function us_regOotGC_to_pal_regOotGC(swapSpace) {   // Start Function: us_regOotGC_to_pal_regOotGC
     
     Convert.fillPresets(1);
     
@@ -370,18 +456,10 @@ function us_regOotGC_to_pal_regOotGC(offset_textfield, offset_condition_from_tex
 } // End Function: us_regOotGC_to_pal_regOotGC
 
 // Ocarina of Time (GC) (NTSC-U) (D43E01) -> Ocarina of Time (GC) (NTSC-U) (PZLP01)
-function us_regOotGC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_regOotGC_to_us_ootGC
+function us_regOotGC_to_us_ootGC(swapSpace) {   // Start Function: us_regOotGC_to_us_ootGC
     
-    Convert.fillPresets(2);
-    
-    offset_textfield[0].value = "-1560";
-    offset_textfield[1].value = "-1580";
-    
-    offset_condition_from_textfield[0].value = "80CA0000";
-    offset_condition_from_textfield[1].value = "80BE0000";
-    
-    offset_condition_to_textfield[0].value = "80FFFFFF";
-    offset_condition_to_textfield[1].value = "80C9FFFF";
+    Preset.addOffset("-1560", "80CA0000", "80FFFFFF");
+    Preset.addOffset("-1580", "80BE0000", "80C9FFFF");
     
     for (var i=0; i<swapSpace.length; i++)
         swapSpace[i].setAttribute("data-value", "off");
@@ -389,7 +467,7 @@ function us_regOotGC_to_us_ootGC(offset_textfield, offset_condition_from_textfie
 } // End Function: us_regOotGC_to_us_ootGC
 
 // Ocarina of Time (GC) (NTSC-U) (D43E01) -> Ocarina of Time (GC) (PAL) (PZLP01)
-function us_regOotGC_to_pal_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_regOotGC_to_pal_ootGC
+function us_regOotGC_to_pal_ootGC(swapSpace) {   // Start Function: us_regOotGC_to_pal_ootGC
     
     Convert.fillPresets(1);
     
@@ -399,7 +477,7 @@ function us_regOotGC_to_pal_ootGC(offset_textfield, offset_condition_from_textfi
 } // End Function: us_regOotGC_to_pal_ootGC
 
 // Ocarina of Time (GC) (NTSC-U) (D43E01) -> Ocarina of Time (VC) (NTSC-U) (NACP01)
-function us_regOotGC_to_us_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_regOotGC_to_us_ootVC
+function us_regOotGC_to_us_ootVC(swapSpace) {   // Start Function: us_regOotGC_to_us_ootVC
     
     Convert.fillPresets(1);
     
@@ -409,7 +487,7 @@ function us_regOotGC_to_us_ootVC(offset_textfield, offset_condition_from_textfie
 } // End Function: us_regOotGC_to_us_ootVC
 
 // Ocarina of Time (GC) (NTSC-U) (D43E01) -> Ocarina of Time (VC) (PAL) (NACP01)
-function us_regOotGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_regOotGC_to_pal_ootVC
+function us_regOotGC_to_pal_ootVC(swapSpace) {   // Start Function: us_regOotGC_to_pal_ootVC
     
     Convert.fillPresets(1);
     
@@ -419,26 +497,15 @@ function us_regOotGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfi
 } // End Function: us_regOotGC_to_pal_ootVC
 
 // Ocarina of Time (GC) (NTSC-U) (D43E01) -> Master Quest (GC) (NTSC-U) (D43E01)
-function us_regOotGC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_regOotGC_to_us_mqOotGC
+function us_regOotGC_to_us_mqOotGC(swapSpace) {   // Start Function: us_regOotGC_to_us_mqOotGC
     
-    Convert.fillPresets(2);
-    
-    offset_textfield[0].value = "-40";
-    offset_textfield[1].value = "-20";
-    
-    offset_condition_from_textfield[0].value = "80CA0000";
-    offset_condition_from_textfield[1].value = "80BE0000";
-    
-    offset_condition_to_textfield[0].value = "80FFFFFF";
-    offset_condition_to_textfield[1].value = "80C9FFFF";
-    
-    for (var i=0; i<swapSpace.length; i++)
-        swapSpace[i].setAttribute("data-value", "off");
+    us_mqOotGC_to_us_regOotGC(swapSpace);
+    Preset.reverseGameCombo(swapSpace);
     
 } // End Function: us_regOotGC_to_us_mqOotGC
 
 // Ocarina of Time (GC) (NTSC-U) (PZL) -> Master Quest (GC) (PAL) (D43PE01)
-function us_regOotGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_regOotGC_to_pal_mqOotGC
+function us_regOotGC_to_pal_mqOotGC(swapSpace) {   // Start Function: us_regOotGC_to_pal_mqOotGC
     
     Convert.fillPresets(1);
     
@@ -454,7 +521,7 @@ function us_regOotGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_text
 
 
 // Ocarina of Time (GC) (PAL) (D43P01) -> Ocarina of Time (GC) (PAL) (D43E01)
-function pal_regOotGC_to_us_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_regOotGC_to_us_regOotGC
+function pal_regOotGC_to_us_regOotGC(swapSpace) {   // Start Function: pal_regOotGC_to_us_regOotGC
     
     Convert.fillPresets(1);
     
@@ -464,7 +531,7 @@ function pal_regOotGC_to_us_regOotGC(offset_textfield, offset_condition_from_tex
 } // End Function: pal_regOotGC_to_us_regOotGC
 
 // Ocarina of Time (GC) (PAL) (D43P01) -> Ocarina of Time (GC) (NTSC-U) (PZLE01)
-function pal_regOotGC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_regOotGC_to_us_ootGC
+function pal_regOotGC_to_us_ootGC(swapSpace) {   // Start Function: pal_regOotGC_to_us_ootGC
     
     Convert.fillPresets(1);
     
@@ -474,7 +541,7 @@ function pal_regOotGC_to_us_ootGC(offset_textfield, offset_condition_from_textfi
 } // End Function: pal_regOotGC_to_us_ootGC
 
 // Ocarina of Time (GC) (PAL) (D43P01) -> Ocarina of Time (GC) (PAL) (PZLP01)
-function pal_regOotGC_to_pal_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_regOotGC_to_pal_ootGC
+function pal_regOotGC_to_pal_ootGC(swapSpace) {   // Start Function: pal_regOotGC_to_pal_ootGC
     
     Convert.fillPresets(1);
     
@@ -484,7 +551,7 @@ function pal_regOotGC_to_pal_ootGC(offset_textfield, offset_condition_from_textf
 } // End Function: pal_regOotGC_to_pal_ootGC
 
 // Ocarina of Time (GC) (PAL) (D43P01) -> Ocarina of Time (VC) (NTSC-U) (NACE01)
-function pal_regOotGC_to_us_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_regOotGC_to_us_ootVC
+function pal_regOotGC_to_us_ootVC(swapSpace) {   // Start Function: pal_regOotGC_to_us_ootVC
     
     Convert.fillPresets(1);
     
@@ -494,7 +561,7 @@ function pal_regOotGC_to_us_ootVC(offset_textfield, offset_condition_from_textfi
 } // End Function: pal_regOotGC_to_us_ootVC
 
 // Ocarina of Time (GC) (PAL) (D43P01) -> Ocarina of Time (VC) (PAL) (NACP01)
-function pal_regOotGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_regOotGC_to_pal_ootVC
+function pal_regOotGC_to_pal_ootVC(swapSpace) {   // Start Function: pal_regOotGC_to_pal_ootVC
     
     Convert.fillPresets(1);
     
@@ -504,7 +571,7 @@ function pal_regOotGC_to_pal_ootVC(offset_textfield, offset_condition_from_textf
 } // End Function: pal_regOotGC_to_pal_ootVC
 
 // Ocarina of Time (GC) (PAL) (D43P01) -> Master Quest (GC) (NTSC-U) (D43E01)
-function pal_regOotGC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_regOotGC_to_us_mqOotGC
+function pal_regOotGC_to_us_mqOotGC(swapSpace) {   // Start Function: pal_regOotGC_to_us_mqOotGC
     
     Convert.fillPresets(1);
     
@@ -514,7 +581,7 @@ function pal_regOotGC_to_us_mqOotGC(offset_textfield, offset_condition_from_text
 } // End Function: pal_regOotGC_to_us_mqOotGC
 
 // Ocarina of Time (GC) (PAL) (D43P01) -> Master Quest (GC) (PAL) (D43P01)
-function pal_regOotGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_regOotGC_to_pal_mqOotGC
+function pal_regOotGC_to_pal_mqOotGC(swapSpace) {   // Start Function: pal_regOotGC_to_pal_mqOotGC
     
     Convert.fillPresets(1);
     
@@ -530,26 +597,15 @@ function pal_regOotGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_tex
 
 
 // Ocarina of Time (GC) (NTSC-U) (PZLE01) -> Ocarina of Time (GC) (NTSC-U) (D43E01)
-function us_ootGC_to_us_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_ootGC_to_us_regOotGC
+function us_ootGC_to_us_regOotGC(swapSpace) {   // Start Function: us_ootGC_to_us_regOotGC
     
-    Convert.fillPresets(2);
-    
-    offset_textfield[0].value = "1560";
-    offset_textfield[1].value = "1580";
-    
-    offset_condition_from_textfield[0].value = "80C9EA00";
-    offset_condition_from_textfield[1].value = "80BDEA00";
-    
-    offset_condition_to_textfield[0].value = "80FFFFFF";
-    offset_condition_to_textfield[1].value = "80C9E9FF";
-    
-    for (var i=0; i<swapSpace.length; i++)
-        swapSpace[i].setAttribute("data-value", "off");
+    us_regOotGC_to_us_ootGC(swapSpace);
+    Preset.reverseGameCombo(swapSpace);
     
 } // End Function: us_ootGC_to_us_regOotGC
 
 // Ocarina of Time (GC) (NTSC-U) (PZLE01) -> Ocarina of Time (GC) (PAL) (D43P01)
-function us_ootGC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_ootGC_to_pal_regOotGC
+function us_ootGC_to_pal_regOotGC(swapSpace) {   // Start Function: us_ootGC_to_pal_regOotGC
     
     Convert.fillPresets(1);
     
@@ -559,17 +615,28 @@ function us_ootGC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfi
 } // End Function: us_ootGC_to_pal_regOotGC
 
 // Ocarina of Time (GC) (NTSC-U) (PZLE01) -> Ocarina of Time (GC) (PAL) (PZLP01)
-function us_ootGC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_ootGC_to_us_ootGC
+function us_ootGC_to_pal_ootGC(swapSpace) {   // Start Function: us_ootGC_to_pal_ootGC
     
-    Convert.fillPresets(1);
+    Preset.addOffset("47640", "80C80000", "80E6FFFF");
+    Preset.addOffset("47650", "80BE0000", "80BEFFFF");
+    Preset.addOffset("49F10", "80B50000", "80B6FFFF");
+    Preset.addOffset("49E10", "80B40000", "80B4FFFF");
+    Preset.addOffset("49D40", "80B30000", "80B3FFFF");
+    Preset.addOffset("49E44", "80AE0000", "80AEFFFF");
+    Preset.addOffset("49E40", "80AC0000", "80ACFFFF");
+    Preset.addOffset("49E00", "80130000", "8013FFFF");
+    
+    
+    
+    
     
     for (var i=0; i<swapSpace.length; i++)
         swapSpace[i].setAttribute("data-value", "off");
     
-} // End Function: us_ootGC_to_us_ootGC
+} // End Function: us_ootGC_to_pal_ootGC
 
 // Ocarina of Time (GC) (NTSC-U) (PZLE01) -> Ocarina of Time (VC) (NTSC-U) (D43E01)
-function us_ootGC_to_us_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_ootGC_to_us_ootVC
+function us_ootGC_to_us_ootVC(swapSpace) {   // Start Function: us_ootGC_to_us_ootVC
     
     Convert.fillPresets(1);
     
@@ -579,7 +646,7 @@ function us_ootGC_to_us_ootVC(offset_textfield, offset_condition_from_textfield,
 } // End Function: us_ootGC_to_us_ootVC
 
 // Ocarina of Time (GC) (NTSC-U) (PZLE01) -> Ocarina of Time (VC) (PAL) (NACP01)
-function us_ootGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_ootGC_to_pal_ootVC
+function us_ootGC_to_pal_ootVC(swapSpace) {   // Start Function: us_ootGC_to_pal_ootVC
     
     Convert.fillPresets(1);
     
@@ -589,26 +656,18 @@ function us_ootGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield
 } // End Function: us_ootGC_to_pal_ootVC
 
 // Ocarina of Time (GC) (NTSC-U) (PZLE01) -> Master Quest (GC) (NTSC-U) (D43E01)
-function us_ootGC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_ootGC_to_us_mqOotGC
+function us_ootGC_to_us_mqOotGC(swapSpace) {   // Start Function: us_ootGC_to_us_mqOotGC
     
-    Convert.fillPresets(2);
+    Preset.addOffset("1540", "80C9EA00", "80FFFFFF");
+    Preset.addOffset("1560", "80BDEA00", "80C9E9FF");
     
-    offset_textfield[0].value = "1540";
-    offset_textfield[1].value = "1560";
-    
-    offset_condition_from_textfield[0].value = "80C9EA00";
-    offset_condition_from_textfield[1].value = "80BDEA00";
-    
-    offset_condition_to_textfield[0].value = "80FFFFFF";
-    offset_condition_to_textfield[1].value = "80C9E9FF";
-    
-    for (var i=0; i<swapSpace.length; i++)
+    for (i=0; i<swapSpace.length; i++)
         swapSpace[i].setAttribute("data-value", "off");
     
 } // End Function: us_ootGC_to_us_mqOotGC
 
 // Ocarina of Time (GC) (NTSC-U) (PZLE01) -> Master Quest (GC) (PAL) (D43P01)
-function us_ootGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_ootGC_to_pal_mqOotGC
+function us_ootGC_to_pal_mqOotGC(swapSpace) {   // Start Function: us_ootGC_to_pal_mqOotGC
     
     Convert.fillPresets(1);
     
@@ -624,7 +683,7 @@ function us_ootGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfie
 
 
 // Ocarina of Time (GC) (PAL) (PZLP01) -> Ocarina of Time (GC) (NTSC-U) (D43E01)
-function pal_ootGC_to_us_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_ootGC_to_us_regOotGC
+function pal_ootGC_to_us_regOotGC(swapSpace) {   // Start Function: pal_ootGC_to_us_regOotGC
     
     Convert.fillPresets(1);
     
@@ -634,7 +693,7 @@ function pal_ootGC_to_us_regOotGC(offset_textfield, offset_condition_from_textfi
 } // End Function: pal_ootGC_to_us_regOotGC
 
 // Ocarina of Time (GC) (PAL) (PZLP01) -> Ocarina of Time (GC) (PAL) (D43P01)
-function pal_ootGC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_ootGC_to_pal_regOotGC
+function pal_ootGC_to_pal_regOotGC(swapSpace) {   // Start Function: pal_ootGC_to_pal_regOotGC
     
     Convert.fillPresets(1);
     
@@ -644,17 +703,15 @@ function pal_ootGC_to_pal_regOotGC(offset_textfield, offset_condition_from_textf
 } // End Function: pal_ootGC_to_pal_regOotGC
 
 // Ocarina of Time (GC) (PAL) (PZLP01) -> Ocarina of Time (GC) (NTSC-U) (PZLE01)
-function pal_ootGC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_ootGC_to_us_ootGC
-    
-    Convert.fillPresets(1);
-    
-    for (var i=0; i<swapSpace.length; i++)
-        swapSpace[i].setAttribute("data-value", "off");
+function pal_ootGC_to_us_ootGC(swapSpace) {   // Start Function: pal_ootGC_to_us_ootGC
+        
+    us_ootGC_to_pal_ootGC(swapSpace);
+    Preset.reverseGameCombo(swapSpace);
     
 } // End Function: pal_ootGC_to_us_ootGC
 
 // Ocarina of Time (GC) (PAL) (PZLP01) -> Ocarina of Time (VC) (NTSC-U) (NACE01)
-function pal_ootGC_to_us_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_ootGC_to_us_ootVC
+function pal_ootGC_to_us_ootVC(swapSpace) {   // Start Function: pal_ootGC_to_us_ootVC
     
     Convert.fillPresets(1);
     
@@ -664,7 +721,7 @@ function pal_ootGC_to_us_ootVC(offset_textfield, offset_condition_from_textfield
 } // End Function: pal_ootGC_to_us_ootVC
 
 // Ocarina of Time (GC) (PAL) (PZLP01) -> Ocarina of Time (VC) (PAL) (NACP01)
-function pal_ootGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_ootGC_to_pal_ootVC
+function pal_ootGC_to_pal_ootVC(swapSpace) {   // Start Function: pal_ootGC_to_pal_ootVC
     
     Convert.fillPresets(1);
     
@@ -674,7 +731,7 @@ function pal_ootGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfiel
 } // End Function: pal_ootGC_to_pal_ootVC
 
 // Ocarina of Time (GC) (PAL) (PZLP01) -> Master Quest (GC) (NTSC-U) (D43E01)
-function pal_ootGC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_ootGC_to_us_mqOotGC
+function pal_ootGC_to_us_mqOotGC(swapSpace) {   // Start Function: pal_ootGC_to_us_mqOotGC
     
     Convert.fillPresets(1);
     
@@ -684,7 +741,7 @@ function pal_ootGC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfie
 } // End Function: pal_ootGC_to_us_mqOotGC
 
 // Ocarina of Time (GC) (PAL) (PZLP01) -> Master Quest (GC) (PAL) (D43P01)
-function pal_ootGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_ootGC_to_pal_mqOotGC
+function pal_ootGC_to_pal_mqOotGC(swapSpace) {   // Start Function: pal_ootGC_to_pal_mqOotGC
     
     Convert.fillPresets(1);
     
@@ -700,7 +757,7 @@ function pal_ootGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfi
 
 
 // Ocarina of Time (VC) (NTSC-U) (NACE01) -> Ocarina of Time (GC) (NTSC-U) (D43E01)
-function us_ootVC_to_us_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_ootVC_to_us_regOotGC
+function us_ootVC_to_us_regOotGC(swapSpace) {   // Start Function: us_ootVC_to_us_regOotGC
     
     Convert.fillPresets(1);
     
@@ -710,7 +767,7 @@ function us_ootVC_to_us_regOotGC(offset_textfield, offset_condition_from_textfie
 } // End Function: us_ootVC_to_us_regOotGC
 
 // Ocarina of Time (VC) (NTSC-U) (NACE01) -> Ocarina of Time (GC) (PAL) (D43P01)
-function us_ootVC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_ootVC_to_pal_regOotGC
+function us_ootVC_to_pal_regOotGC(swapSpace) {   // Start Function: us_ootVC_to_pal_regOotGC
     
     Convert.fillPresets(1);
     
@@ -720,7 +777,7 @@ function us_ootVC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfi
 } // End Function: us_ootVC_to_pal_regOotGC
 
 // Ocarina of Time (VC) (NTSC-U) (NACE01) -> Ocarina of Time (GC) (NTSC-U) (PZLE01)
-function us_ootVC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_ootVC_to_us_ootGC
+function us_ootVC_to_us_ootGC(swapSpace) {   // Start Function: us_ootVC_to_us_ootGC
     
     Convert.fillPresets(1);
     
@@ -730,7 +787,7 @@ function us_ootVC_to_us_ootGC(offset_textfield, offset_condition_from_textfield,
 } // End Function: us_ootVC_to_us_ootGC
 
 // Ocarina of Time (VC) (NTSC-U) (NACE01) -> Ocarina of Time (GC) (PAL) (PZLP01)
-function us_ootVC_to_pal_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_ootVC_to_pal_ootGC
+function us_ootVC_to_pal_ootGC(swapSpace) {   // Start Function: us_ootVC_to_pal_ootGC
     
     Convert.fillPresets(1);
     
@@ -740,7 +797,7 @@ function us_ootVC_to_pal_ootGC(offset_textfield, offset_condition_from_textfield
 } // End Function: us_ootVC_to_pal_ootGC
 
 // Ocarina of Time (VC) (NTSC-U) (NACE01) -> Ocarina of Time (GC) (VC) (NACP01)
-function us_ootVC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_ootVC_to_pal_ootVC
+function us_ootVC_to_pal_ootVC(swapSpace) {   // Start Function: us_ootVC_to_pal_ootVC
     
     Convert.fillPresets(1);
     
@@ -750,7 +807,7 @@ function us_ootVC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield
 } // End Function: us_ootVC_to_pal_ootVC
 
 // Ocarina of Time (VC) (NTSC-U) (NACE01) -> Master Quest (GC) (NTSC-U) (D43E01)
-function us_ootVC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_ootVC_to_us_mqOotGC
+function us_ootVC_to_us_mqOotGC(swapSpace) {   // Start Function: us_ootVC_to_us_mqOotGC
     
     Convert.fillPresets(1);
     
@@ -760,7 +817,7 @@ function us_ootVC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfiel
 } // End Function: us_ootVC_to_us_mqOotGC
 
 // Ocarina of Time (VC) (NTSC-U) (NACE01) -> Master Quest (GC) (PAL) (D43P01)
-function us_ootVC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_ootVC_to_pal_mqOotGC
+function us_ootVC_to_pal_mqOotGC(swapSpace) {   // Start Function: us_ootVC_to_pal_mqOotGC
     
     Convert.fillPresets(1);
     
@@ -776,7 +833,7 @@ function us_ootVC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfie
 
 
 // Ocarina of Time (VC) (NTSC-U) (NACE01) -> Ocarina of Time (GC) (NTSC-U) (D43E01)
-function pal_ootVC_to_us_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_ootVC_to_us_regOotGC
+function pal_ootVC_to_us_regOotGC(swapSpace) {   // Start Function: pal_ootVC_to_us_regOotGC
     
     Convert.fillPresets(1);
     
@@ -786,7 +843,7 @@ function pal_ootVC_to_us_regOotGC(offset_textfield, offset_condition_from_textfi
 } // End Function: pal_ootVC_to_us_regOotGC
 
 // Ocarina of Time (VC) (NTSC-U) (NACE01) -> Ocarina of Time (GC) (PAL) (D43P01)
-function pal_ootVC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_ootVC_to_pal_regOotGC
+function pal_ootVC_to_pal_regOotGC(swapSpace) {   // Start Function: pal_ootVC_to_pal_regOotGC
     
     Convert.fillPresets(1);
     
@@ -796,7 +853,7 @@ function pal_ootVC_to_pal_regOotGC(offset_textfield, offset_condition_from_textf
 } // End Function: pal_ootVC_to_pal_regOotGC
 
 // Ocarina of Time (VC) (NTSC-U) (NACE01) -> Ocarina of Time (GC) (NTSC-U) (PZLE01)
-function pal_ootVC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_ootVC_to_us_ootGC
+function pal_ootVC_to_us_ootGC(swapSpace) {   // Start Function: pal_ootVC_to_us_ootGC
     
     Convert.fillPresets(1);
     
@@ -806,7 +863,7 @@ function pal_ootVC_to_us_ootGC(offset_textfield, offset_condition_from_textfield
 } // End Function: pal_ootVC_to_us_ootGC
 
 // Ocarina of Time (VC) (NTSC-U) (NACE01) -> Ocarina of Time (GC) (PAL) (PZLP01)
-function pal_ootVC_to_pal_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_ootVC_to_pal_ootGC
+function pal_ootVC_to_pal_ootGC(swapSpace) {   // Start Function: pal_ootVC_to_pal_ootGC
     
     Convert.fillPresets(1);
     
@@ -816,7 +873,7 @@ function pal_ootVC_to_pal_ootGC(offset_textfield, offset_condition_from_textfiel
 } // End Function: pal_ootVC_to_pal_ootGC
 
 // Ocarina of Time (VC) (NTSC-U) (NACE01) -> Ocarina of Time (VC) (PAL) (D43E01)
-function pal_ootVC_to_us_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_ootVC_to_us_ootVC
+function pal_ootVC_to_us_ootVC(swapSpace) {   // Start Function: pal_ootVC_to_us_ootVC
     
     Convert.fillPresets(1);
     
@@ -826,7 +883,7 @@ function pal_ootVC_to_us_ootVC(offset_textfield, offset_condition_from_textfield
 } // End Function: pal_ootVC_to_us_ootVC
 
 // Ocarina of Time (VC) (NTSC-U) (NACE01) -> Master Quest (GC) (NTSC-U) (D43E01)
-function pal_ootVC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_ootVC_to_us_mqOotGC
+function pal_ootVC_to_us_mqOotGC(swapSpace) {   // Start Function: pal_ootVC_to_us_mqOotGC
     
     Convert.fillPresets(1);
     
@@ -836,7 +893,7 @@ function pal_ootVC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfie
 } // End Function: pal_ootVC_to_us_mqOotGC
 
 // Ocarina of Time (VC) (NTSC-U) (NACE01) -> Master Quest (GC) (PAL) (D43P01)
-function pal_ootVC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_ootVC_to_pal_mqOotGC
+function pal_ootVC_to_pal_mqOotGC(swapSpace) {   // Start Function: pal_ootVC_to_pal_mqOotGC
     
     Convert.fillPresets(1);
     
@@ -858,18 +915,10 @@ function pal_ootVC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfi
 
 
 // Master Quest (GC) (NTSC-U) (D43E01) -> Ocarina of Time (GC) (NTSC-U) (D43E01)
-function us_mqOotGC_to_us_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_mqOotGC_to_us_regOotGC
+function us_mqOotGC_to_us_regOotGC(swapSpace) {   // Start Function: us_mqOotGC_to_us_regOotGC
     
-    Convert.fillPresets(2);
-    
-    offset_textfield[0].value = "40";
-    offset_textfield[1].value = "20";
-    
-    offset_condition_from_textfield[0].value = "80CA0000";
-    offset_condition_from_textfield[1].value = "80BE0000";
-    
-    offset_condition_to_textfield[0].value = "80FFFFFF";
-    offset_condition_to_textfield[1].value = "80C9FFFF";
+    Preset.addOffset("40", "80CA0000", "80FFFFFF");
+    Preset.addOffset("20", "80BE0000", "80C9FFFF");
     
     for (var i=0; i<swapSpace.length; i++)
         swapSpace[i].setAttribute("data-value", "off");
@@ -877,7 +926,7 @@ function us_mqOotGC_to_us_regOotGC(offset_textfield, offset_condition_from_textf
 } // End Function: us_mqOotGC_to_us_regOotGC
 
 // Master Quest (GC) (NTSC-U) (D43E01) -> Ocarina of Time (GC) (PAL) (D43P01)
-function us_mqOotGC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_mqOotGC_to_pal_regOotGC
+function us_mqOotGC_to_pal_regOotGC(swapSpace) {   // Start Function: us_mqOotGC_to_pal_regOotGC
     
     Convert.fillPresets(1);
     
@@ -887,26 +936,15 @@ function us_mqOotGC_to_pal_regOotGC(offset_textfield, offset_condition_from_text
 } // End Function: us_mqOotGC_to_pal_regOotGC
 
 // Master Quest (GC) (NTSC-U) (D43E01) -> Ocarina of Time (GC) (NTSC-U) (PZLE01)
-function us_mqOotGC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_mqOotGC_to_us_ootGC
+function us_mqOotGC_to_us_ootGC(swapSpace) {   // Start Function: us_mqOotGC_to_us_ootGC
     
-    Convert.fillPresets(2);
-    
-    offset_textfield[0].value = "-1540";
-    offset_textfield[1].value = "-1560";
-    
-    offset_condition_from_textfield[0].value = "80CA0000";
-    offset_condition_from_textfield[1].value = "80BE0000";
-    
-    offset_condition_to_textfield[0].value = "80FFFFFF";
-    offset_condition_to_textfield[1].value = "80C9FFFF";
-    
-    for (var i=0; i<swapSpace.length; i++)
-        swapSpace[i].setAttribute("data-value", "off");
+    us_ootGC_to_us_mqOotGC(swapSpace);
+    Preset.reverseGameCombo(swapSpace);
     
 } // End Function: us_mqOotGC_to_us_ootGC
 
 // Master Quest (GC) (NTSC-U) (D43E01) -> Ocarina of Time (GC) (PAL) (PZLP01)
-function us_mqOotGC_to_pal_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_mqOotGC_to_pal_ootGC
+function us_mqOotGC_to_pal_ootGC(swapSpace) {   // Start Function: us_mqOotGC_to_pal_ootGC
     
     Convert.fillPresets(1);
     
@@ -916,7 +954,7 @@ function us_mqOotGC_to_pal_ootGC(offset_textfield, offset_condition_from_textfie
 } // End Function: us_mqOotGC_to_pal_ootGC
 
 // Master Quest (GC) (NTSC-U) (D43E01) -> Ocarina of Time (VC) (NTSC-U) (NACE01)
-function us_mqOotGC_to_us_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_mqOotGC_to_us_ootVC
+function us_mqOotGC_to_us_ootVC(swapSpace) {   // Start Function: us_mqOotGC_to_us_ootVC
     
     Convert.fillPresets(1);
     
@@ -926,7 +964,7 @@ function us_mqOotGC_to_us_ootVC(offset_textfield, offset_condition_from_textfiel
 } // End Function: us_mqOotGC_to_us_ootVC
 
 // Master Quest (GC) (NTSC-U) (D43E01) -> Ocarina of Time (VC) (PAL) (NACP01)
-function us_mqOotGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_mqOotGC_to_pal_ootVC
+function us_mqOotGC_to_pal_ootVC(swapSpace) {   // Start Function: us_mqOotGC_to_pal_ootVC
     
     Convert.fillPresets(1);
     
@@ -936,7 +974,7 @@ function us_mqOotGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfie
 } // End Function: us_mqOotGC_to_pal_ootVC
 
 // Master Quest (GC) (NTSC-U) (D43E01) -> Master Quest (GC) (PAL) (D43P01)
-function us_mqOotGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_mqOotGC_to_pal_mqOotGC
+function us_mqOotGC_to_pal_mqOotGC(swapSpace) {   // Start Function: us_mqOotGC_to_pal_mqOotGC
     
     Convert.fillPresets(1);
     
@@ -952,7 +990,7 @@ function us_mqOotGC_to_pal_mqOotGC(offset_textfield, offset_condition_from_textf
 
 
 // Master Quest (GC) (PAL) (D43P01) -> Ocarina of Time (GC) (NTSC-U) (D43E01)
-function pal_mqOotGC_to_us_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_mqOotGC_to_us_regOotGC
+function pal_mqOotGC_to_us_regOotGC(swapSpace) {   // Start Function: pal_mqOotGC_to_us_regOotGC
     
     Convert.fillPresets(1);
     
@@ -962,7 +1000,7 @@ function pal_mqOotGC_to_us_regOotGC(offset_textfield, offset_condition_from_text
 } // End Function: pal_mqOotGC_to_us_regOotGC
 
 // Master Quest (GC) (PAL) (D43P01) -> Ocarina of Time (GC) (PAL) (D43P01)
-function pal_mqOotGC_to_pal_regOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_mqOotGC_to_pal_regOotGC
+function pal_mqOotGC_to_pal_regOotGC(swapSpace) {   // Start Function: pal_mqOotGC_to_pal_regOotGC
     
     Convert.fillPresets(1);
     
@@ -972,7 +1010,7 @@ function pal_mqOotGC_to_pal_regOotGC(offset_textfield, offset_condition_from_tex
 } // End Function: pal_mqOotGC_to_pal_regOotGC
 
 // Master Quest (GC) (PAL) (D43P01) -> Ocarina of Time (GC) (NTSC-U) (PZLE01)
-function pal_mqOotGC_to_us_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_mqOotGC_to_us_ootGC
+function pal_mqOotGC_to_us_ootGC(swapSpace) {   // Start Function: pal_mqOotGC_to_us_ootGC
     
     Convert.fillPresets(1);
     
@@ -982,7 +1020,7 @@ function pal_mqOotGC_to_us_ootGC(offset_textfield, offset_condition_from_textfie
 } // End Function: pal_mqOotGC_to_us_ootGC
 
 // Master Quest (GC) (PAL) (D43P01) -> Ocarina of Time (GC) (PAL) (PZLP01)
-function pal_mqOotGC_to_pal_ootGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_mqOotGC_to_pal_ootGC
+function pal_mqOotGC_to_pal_ootGC(swapSpace) {   // Start Function: pal_mqOotGC_to_pal_ootGC
     
     Convert.fillPresets(1);
     
@@ -992,7 +1030,7 @@ function pal_mqOotGC_to_pal_ootGC(offset_textfield, offset_condition_from_textfi
 } // End Function: pal_mqOotGC_to_pal_ootGC
 
 // Master Quest (GC) (PAL) (D43P01) -> Ocarina of Time (VC) (NTSC-U) (NACE01)
-function pal_mqOotGC_to_us_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_mqOotGC_to_us_ootVC
+function pal_mqOotGC_to_us_ootVC(swapSpace) {   // Start Function: pal_mqOotGC_to_us_ootVC
     
     Convert.fillPresets(1);
     
@@ -1002,7 +1040,7 @@ function pal_mqOotGC_to_us_ootVC(offset_textfield, offset_condition_from_textfie
 } // End Function: pal_mqOotGC_to_us_ootVC
 
 // Master Quest (GC) (PAL) (D43P01) -> Ocarina of Time (VC) (PAL) (NACP01)
-function pal_mqOotGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_mqOotGC_to_pal_ootVC
+function pal_mqOotGC_to_pal_ootVC(swapSpace) {   // Start Function: pal_mqOotGC_to_pal_ootVC
     
     Convert.fillPresets(1);
     
@@ -1012,7 +1050,7 @@ function pal_mqOotGC_to_pal_ootVC(offset_textfield, offset_condition_from_textfi
 } // End Function: pal_mqOotGC_to_pal_ootVC
 
 // Master Quest (GC) (PAL) (D43P01) -> Master Quest (GC) (NTSC-U) (D43E01)
-function pal_mqOotGC_to_us_mqOotGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_mqOotGC_to_us_mqOotGC
+function pal_mqOotGC_to_us_mqOotGC(swapSpace) {   // Start Function: pal_mqOotGC_to_us_mqOotGC
     
     Convert.fillPresets(1);
     
@@ -1028,30 +1066,23 @@ function pal_mqOotGC_to_us_mqOotGC(offset_textfield, offset_condition_from_textf
 // --------------------- //
 
 // Majora's Mask (GC) (NTSC-U) (PZLE01) to Majora's Mask (GC) (PAL) (PZLP01)
-function us_mmGC_to_pal_mmGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_mmGC_to_pal_mmGC
+function us_mmGC_to_pal_mmGC(swapSpace) {   // Start Function: us_mmGC_to_pal_mmGC
     
-    Convert.fillPresets(6);
-    
-    offset_textfield[0].value = "-9570";
-    offset_textfield[1].value = "-7A0";
-    offset_textfield[2].value = "-C00";
-    offset_textfield[3].value = "-1010";
-    offset_textfield[4].value = "-111B0";
-    offset_textfield[5].value = "-BE0";
-    
-    offset_condition_from_textfield[0].value = "80CA0000";
-    offset_condition_from_textfield[1].value = "80C80000";
-    offset_condition_from_textfield[2].value = "80C10000";
-    offset_condition_from_textfield[3].value = "80B80000";
-    offset_condition_from_textfield[4].value = "80100000";
-    offset_condition_from_textfield[5].value = "81140000";
-    
-    offset_condition_to_textfield[0].value = "80FFFFFF";
-    offset_condition_to_textfield[1].value = "80C9FFFF";
-    offset_condition_to_textfield[2].value = "80C7FFFF";
-    offset_condition_to_textfield[3].value = "80C0FFFF";
-    offset_condition_to_textfield[4].value = "80B7FFFF";
-    offset_condition_to_textfield[5].value = "8116FFFF";
+    Preset.addOffset("-9570", "80CA0000", "80EFFFFF");
+    Preset.addOffset("-630", "80C8E000", "80C8EFFF");
+    Preset.addOffset("-7A0", "80C8C000", "80C8CFFF");
+    Preset.addOffset("-BF0", "80C00000", "80C12FFF");
+    Preset.addOffset("-C00", "80C13000", "80C7FFFF");
+    Preset.addOffset("-E6C", "80BE7000", "80BEFFFF");
+    Preset.addOffset("-E7C", "80BE0000", "80BE6FFF");
+    Preset.addOffset("-1280", "80BD0000", "80BDFFFF");
+    Preset.addOffset("-1278", "80BC0000", "80BCFFFF");
+    Preset.addOffset("-126C", "80B8D000", "80B8FFFF");
+    Preset.addOffset("-124C", "80B80000", "80B8CFFF");
+    Preset.addOffset("-4710", "80B60000", "80B6FFFF");
+    Preset.addOffset("-111B0", "80141000", "80141FFF");
+    Preset.addOffset("-113E0", "8013B000", "80140FFF");
+    Preset.addOffset("-11C0", "81140000", "8116FFFF");
     
     for (var i=0; i<swapSpace.length; i++)
         swapSpace[i].setAttribute("data-value", "off");
@@ -1059,17 +1090,30 @@ function us_mmGC_to_pal_mmGC(offset_textfield, offset_condition_from_textfield, 
 } // End Function: us_mmGC_to_pal_mmGC
 
 // Majora's Mask (GC) (NTSC-U) (PZLE01) to Majora's Mask (VC) (NTSC-U) (NARE01)
-function us_mmGC_to_us_mmVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_mmGC_to_us_mmVC
+function us_mmGC_to_us_mmVC(swapSpace) {   // Start Function: us_mmGC_to_us_mmVC
     
-    Convert.fillPresets(1);
+    Preset.addOffset("DDA4EE", "80140000", "8014FFFF");
+    Preset.addOffset("44AC50", "80B60000", "80B6FFFF");
+    Preset.addOffset("44E490", "80B80000", "80B8FFFF");
+    Preset.addOffset("53105C", "81100000", "811FFFFF");
+    Preset.addOffset("-BB27F0", "80C30000", "80C3FFFF");
+    Preset.addOffset("-BB1C50", "80BE4000", "80BEFFFF");
+    Preset.addOffset("-BB1C20", "80BD0000", "80BDFFFF");
+    Preset.addOffset("-BB1C10", "80BC0000", "80BCFFFF");
+    Preset.addOffset("-BB1B80", "80C10000", "80C7FFFF");
+    Preset.addOffset("-BAFE90", "80C80000", "80CAFFFF");
+    Preset.addOffset("-BAF960", "80CBC000", "80CFFFFF");
+    Preset.addOffset("-BAE730", "80E00000", "80E4EFFF");
+    Preset.addOffset("-B4BEE0", "80E4F000", "80EFFFFF");
     
-    for (var i=0; i<swapSpace.length; i++)
+    swapSpace[0].setAttribute("data-value", "off");
+    for (var i=4; i<swapSpace.length; i++)
         swapSpace[i].setAttribute("data-value", "on");
     
 } // End Function: us_mmGC_to_us_mmVC
 
 // Majora's Mask (GC) (NTSC-U) (PZLE01) to Majora's Mask (VC) (PAL) (NARP01)
-function us_mmGC_to_pal_mmVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_mmGC_to_pal_mmVC
+function us_mmGC_to_pal_mmVC(swapSpace) {   // Start Function: us_mmGC_to_pal_mmVC
     
     Convert.fillPresets(1);
     
@@ -1081,38 +1125,15 @@ function us_mmGC_to_pal_mmVC(offset_textfield, offset_condition_from_textfield, 
 
 
 // Majora's Mask (GC) (PAL) (PZLP01) to Majora's Mask (GC) (NTSC-U) (PZLP01)
-function pal_mmGC_to_us_mmGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_mmGC_to_us_mmVC
+function pal_mmGC_to_us_mmGC(swapSpace) {   // Start Function: pal_mmGC_to_us_mmVC
     
-    Convert.fillPresets(6);
-    
-    offset_textfield[0].value = "9570";
-    offset_textfield[1].value = "7A0";
-    offset_textfield[2].value = "C00";
-    offset_textfield[3].value = "1010";
-    offset_textfield[4].value = "111B0";
-    offset_textfield[5].value = "BE0";
-    
-    offset_condition_from_textfield[0].value = "80C96A90";
-    offset_condition_from_textfield[1].value = "80C7F860";
-    offset_condition_from_textfield[2].value = "80C0F400";
-    offset_condition_from_textfield[3].value = "80B7EFF0";
-    offset_condition_from_textfield[4].value = "800EEE50";
-    offset_condition_from_textfield[5].value = "8113F420";
-    
-    offset_condition_to_textfield[0].value = "80FFFFFF";
-    offset_condition_to_textfield[1].value = "80C9F85F";
-    offset_condition_to_textfield[2].value = "80C7F3FF";
-    offset_condition_to_textfield[3].value = "80C0EFEF";
-    offset_condition_to_textfield[4].value = "80B6EE4F";
-    offset_condition_to_textfield[5].value = "8116F41F";
-    
-    for (var i=0; i<swapSpace.length; i++)
-        swapSpace[i].setAttribute("data-value", "off");
+    us_mmGC_to_pal_mmGC(swapSpace);
+    Preset.reverseGameCombo(swapSpace);
     
 } // End Function: pal_mmGC_to_us_mmVC
 
 // Majora's Mask (GC) (PAL) (PZLP01) to Majora's Mask (VC) (NTSC-U) (NARE01)
-function pal_mmGC_to_us_mmVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_mmGC_to_us_mmVC
+function pal_mmGC_to_us_mmVC(swapSpace) {   // Start Function: pal_mmGC_to_us_mmVC
     
     Convert.fillPresets(1);
     
@@ -1122,7 +1143,7 @@ function pal_mmGC_to_us_mmVC(offset_textfield, offset_condition_from_textfield, 
 } // End Function: pal_mmGC_to_us_mmVC
 
 // Majora's Mask (GC) (PAL) (PZLP01) to Majora's Mask (VC) (PAL) (NARP01)
-function pal_mmGC_to_pal_mmVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_mmGC_to_pal_mmVC
+function pal_mmGC_to_pal_mmVC(swapSpace) {   // Start Function: pal_mmGC_to_pal_mmVC
     
     Convert.fillPresets(1);
     
@@ -1134,17 +1155,15 @@ function pal_mmGC_to_pal_mmVC(offset_textfield, offset_condition_from_textfield,
 
 
 // Majora's Mask (VC) (NTSC-U) (NACE01) to Majora's Mask (GC) (NTSC-U) (PZLE01)
-function us_mmVC_to_us_mmGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_mmVC_to_us_mmGC
+function us_mmVC_to_us_mmGC(swapSpace) {   // Start Function: us_mmVC_to_us_mmGC
     
-    Convert.fillPresets(1);
-    
-    for (var i=0; i<swapSpace.length; i++)
-        swapSpace[i].setAttribute("data-value", "on");
+    us_mmGC_to_us_mmVC(swapSpace);
+    Preset.reverseGameCombo(swapSpace);
     
 } // End Function: us_mmVC_to_us_mmGC
 
 // Majora's Mask (VC) (NTSC-U) (NACE01) to Majora's Mask (GC) (PAL) (PZLP01)
-function us_mmVC_to_pal_mmGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_mmVC_to_pal_mmGC
+function us_mmVC_to_pal_mmGC(swapSpace) {   // Start Function: us_mmVC_to_pal_mmGC
 
     Convert.fillPresets(1);
     
@@ -1154,7 +1173,7 @@ function us_mmVC_to_pal_mmGC(offset_textfield, offset_condition_from_textfield, 
 } // End Function: us_mmVC_to_pal_mmGC
 
 // Majora's Mask (VC) (NTSC-U) (NACE01) to Majora's Mask (VC) (PAL) (NARP01)
-function us_mmVC_to_pal_mmVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_mmVC_to_pal_mmVC
+function us_mmVC_to_pal_mmVC(swapSpace) {   // Start Function: us_mmVC_to_pal_mmVC
     
     Convert.fillPresets(1);
     
@@ -1166,7 +1185,7 @@ function us_mmVC_to_pal_mmVC(offset_textfield, offset_condition_from_textfield, 
 
 
 // Majora's Mask (VC) (PAL) (NACP01) to Majora's Mask (GC) (NTSC-U) (PZLE01)
-function pal_mmVC_to_us_mmGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_mmVC_to_us_mmGC
+function pal_mmVC_to_us_mmGC(swapSpace) {   // Start Function: pal_mmVC_to_us_mmGC
     
     Convert.fillPresets(1);
     
@@ -1176,7 +1195,7 @@ function pal_mmVC_to_us_mmGC(offset_textfield, offset_condition_from_textfield, 
 } // End Function: pal_mmVC_to_us_mmGC
 
 // Majora's Mask (VC) (PAL) (PZLP01) to Majora's Mask (GC) (PAL) (PZLE01)
-function pal_mmVC_to_pal_mmGC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_mmVC_to_pal_mmGC
+function pal_mmVC_to_pal_mmGC(swapSpace) {   // Start Function: pal_mmVC_to_pal_mmGC
     
     Convert.fillPresets(1);
     
@@ -1186,7 +1205,7 @@ function pal_mmVC_to_pal_mmGC(offset_textfield, offset_condition_from_textfield,
 } // End Function: pal_mmVC_to_pal_mmGC
 
 // Majora's Mask (VC) (PAL) (PZLP01) to Majora's Mask (VC) (NTSC-U) (NARE01)
-function pal_mmVC_to_us_mmVC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_mmVC_to_us_mmVC
+function pal_mmVC_to_us_mmVC(swapSpace) {   // Start Function: pal_mmVC_to_us_mmVC
     
     Convert.fillPresets(1);
     
@@ -1207,27 +1226,19 @@ function pal_mmVC_to_us_mmVC(offset_textfield, offset_condition_from_textfield, 
 // ---------------------- //
 
 // Super Mario 64 (VC) (NTSC-U) (NAAE01) to Super Mario 64 (VC) (PAL) (NAAP01)
-function us_sm64VC_to_pal_sm64VC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: us_sm64VC_to_pal_sm64VC
+function us_sm64VC_to_pal_sm64VC(swapSpace) {   // Start Function: us_sm64VC_to_pal_sm64VC
     
-    Convert.fillPresets(1);
+    Preset.addOffset("-0", "81000000", "81FFFFFF");
     
-    offset_textfield[0].value = "-0";
-    
-    offset_condition_from_textfield[0].value = "81000000";
-    
-    offset_condition_to_textfield[0].value = "81FFFFFF";
+    for (var i=0; i<swapSpace.length; i++)
+        swapSpace[i].setAttribute("data-value", "off");
     
 } // End Function: us_sm64VC_to_pal_sm64VC
 
 // Super Mario 64 (VC) (PAL) (NAAP01) to Super Mario 64 (VC) (NTSC-U) (NAAE01)
-function pal_sm64VC_to_us_sm64VC(offset_textfield, offset_condition_from_textfield, offset_condition_to_textfield, swapSpace) {   // Start Function: pal_sm64VC_to_us_sm64VC
+function pal_sm64VC_to_us_sm64VC(swapSpace) {   // Start Function: pal_sm64VC_to_us_sm64VC
     
-    Convert.fillPresets(1);
-    
-    offset_textfield[0].value = "0";
-    
-    offset_condition_from_textfield[0].value = "81000000";
-    
-    offset_condition_to_textfield[0].value = "81FFFFFF";
+    us_sm64VC_to_pal_sm64VC(swapSpace);
+    Preset.reverseGameCombo(swapSpace);
     
 } // End Function: pal_sm64VC_to_us_sm64VC

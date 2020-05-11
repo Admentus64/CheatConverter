@@ -1,0 +1,175 @@
+<!--
+	HyperText Markup Language Document
+	Author:		Admentus
+	Design:		GhostlyDark
+-->
+
+<!DOCTYPE html>
+
+<html>
+	
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'none'; form-action 'none'; base-uri 'none'; img-src 'self';script-src 'self'; style-src 'self'; font-src 'self'; block-all-mixed-content">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#3264C8">
+		<link rel="icon" href="src/img/icon-cc.png">
+		<meta property="og:image" content="https://evilgames.eu/img/og-cheat-converter.png">
+		<meta name="description" content="Hexadecimal Cheat Converter for porting cheat codes.">
+		<title>Cheat Converter</title>
+		
+		<link rel="stylesheet" href="src/css/style.css">
+		
+		<script src="src/js/Event.js"></script>
+		<script src="src/js/Convert.js"></script>
+		<script src="src/js/Address.js"></script>
+		<script src="src/js/Preset.js"></script>
+		<script src="src/js/Dark.js"></script>
+		<script src="src/js/Language.js"></script>
+	</head>
+    
+  <body>
+		<header>
+				<h1>Cheat Converter</h1>
+		</header>
+	
+		<div id="wrapper">
+			
+			<main>
+
+				<div id="wrapper-top"><a href="../mods.htm" id="back"><svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="46" height="46" viewBox="0 0 24 24"><path d="M15.4 7.4L14 6l-6 6 6 6 1.4-1.4-4.6-4.6z"/><path d="M0 0h24v24H0z" fill="none"/></svg></a></div>
+				<div id="wrapper-bottom"><a title="Convert" id="offset_button"><svg width="36" height="36" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.32l6 3.37v6.62l-6 3.37-6-3.37V8.69L12 12V5.32m9 11.18a1 1 0 01-.53.88l-7.9 4.44A.94.94 0 0112 22a.94.94 0 01-.57-.18l-7.9-4.44A1 1 0 013 16.5v-9a1 1 0 01.53-.88l7.9-4.44A.94.94 0 0112 2c.21 0 .41.06.57.18l7.9 4.44a1 1 0 01.53.88v9M12 4.15L5 8.09v7.82l7 3.94 7-3.94V8.09l-7-3.94z"/></svg></a></div>
+				<div id="buttons">
+					<div class="dropdown">
+						<a class="drop-button" title="Change language" id="change_language">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+							<path fill="none" d="M0 0h24v24H0V0z"/>
+							<path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 00-1.38-3.56A8.03 8.03 0 0118.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.987 7.987 0 015.08 16zm2.95-8H5.08a7.987 7.987 0 014.33-3.56A15.65 15.65 0 008.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 01-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
+						</svg>
+						<span lang="en">Language</span><span lang="de">Sprache</span><span lang="nl">Spraak</span><span lang="sv">Språk</span>
+						</a>
+						<div id="dropdown_language">
+							<a id="english_language">English</a>
+							<a id="german_language">Deutsch</a>
+							<a id="dutch_language">Nederlands</a>
+							<a id="swedish_language">Svenska</a>
+						</div>
+					</div>
+					&nbsp;
+					<a title="Toggle dark mode" id="dark_mode">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+							<path fill="none" d="M0 0h24v24H0V0z"/>
+							<g>
+								<path d="M10 4c4.41 0 8 3.59 8 8s-3.59 8-8 8c-.34 0-.68-.02-1.01-.07C10.9 17.77 12 14.95 12 12s-1.1-5.77-3.01-7.93C9.32 4.02 9.66 4 10 4m0-2c-1.82 0-3.53.5-5 1.35C7.99 5.08 10 8.3 10 12s-2.01 6.92-5 8.65C6.47 21.5 8.18 22 10 22c5.52 0 10-4.48 10-10S15.52 2 10 2z"/>
+							</g>
+						</svg>
+						<span lang="en">Dark Mode</span><span lang="de">Nachtmodus</span><span lang="nl">Donkere Modus</span><span lang="sv">Mörkt Läge</span>
+					</a>
+					&nbsp;
+					<br class="mobile">
+					<a title="Add offset" id="add_offset">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+							<path fill="none" d="M0 0h24v24H0V0z"/>
+							<path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+						</svg>
+						<span lang="en">Add</span><span lang="de">Hinzufügen</span><span lang="nl">Toevoegen</span><span lang="sv">Lägg till</span>
+					</a>
+					&nbsp;
+					<a title="Remove offset" id="remove_offset">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+							<path fill="none" d="M0 0h24v24H0V0z"/>
+							<path d="M19 13H5v-2h14v2z"/>
+						</svg>
+						<span lang="en">Remove</span><span lang="de">Entfernen</span><span lang="nl">Verwijderen</span><span lang="sv">Ta bort</span>
+					</a>
+				</div>
+				
+				<br>
+				<div id="offset_div"></div>
+				
+				
+				<br>
+				<div id="select_bar">
+				<input type="text" id="search_bar" placeholder="Search...">
+				</a>
+				<a title="Swap selected games to convert between" id="swap_select">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+				<path fill="none" d="M0 0h24v24H0V0z"/><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3zm7 14.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/>
+				</svg>
+				</a>
+				</div>
+				
+				<br> <br> <br>
+				
+				<select id="select_preset_from" autocomplete="off">
+					<option value="None" id="presetTitleFrom" class="presetTitle">Select a game to convert from</option>
+					
+					<option value="None" class="presetHeader" disabled>--- Ocarina of Time ---</option>
+					<option value="Ocarina of Time (GC) (NTSC-U) (D43E01)">Ocarina of Time (GC) (NTSC-U) (D43E01)</option>
+					<option value="Ocarina of Time (GC) (PAL) (D43P01)">Ocarina of Time (GC) (PAL) (D43P01)</option>
+					<option value="Ocarina of Time (GC) (NTSC-U) (PZLE01)">Ocarina of Time (GC) (NTSC-U) (PZLE01)</option>
+					<option value="Ocarina of Time (GC) (PAL) (PZLP01)">Ocarina of Time (GC) (PAL) (PZLP01)</option>
+					<option value="Ocarina of Time (VC) (NTSC-U) (NACE01)">Ocarina of Time (VC) (NTSC-U) (NACE01)</option>
+					<option value="Ocarina of Time (VC) (PAL) (NACP01)">Ocarina of Time (VC) (PAL) (NACP01)</option>
+					
+					<option value="None" class="presetHeader" disabled>--- Master Quest ---</option>
+					<option value="Master Quest (GC) (NTSC-U) (D43E01)">Master Quest (GC) (NTSC-U) (D43E01)</option>
+					<option value="Master Quest (GC) (PAL) (D43P01)">Master Quest (GC) (PAL) (D43P01)</option>
+					
+					<option value="None" class="presetHeader" disabled>--- Majora's Mask ---</option>
+					<option value="Majora's Mask (GC) (NTSC-U) (PZLE01)">Majora's Mask (GC) (NTSC-U) (PZLE01)</option>
+					<option value="Majora's Mask (GC) (PAL) (PZLP01)">Majora's Mask (GC) (PAL) (PZLP01)</option>
+					<option value="Majora's Mask (VC) (NTSC-U) (NARE01)">Majora's Mask (VC) (NTSC-U) (NARE01)</option>
+					<option value="Majora's Mask (VC) (PAL) (NARP01)">Majora's Mask (VC) (PAL) (NARP01)</option>
+					
+					<option value="None" class="presetHeader" disabled>--- Super Mario 64 ---</option>
+					<option value="Super Mario 64 (VC) (NTSC-U) (NAAE01)">Super Mario 64 (VC) (NTSC-U) (NAAE01)</option>
+					<option value="Super Mario 64 (VC) (PAL) (NAAP01)">Super Mario 64 (VC) (PAL) (NAAP01)</option>
+				</select>
+				
+				<select id="select_preset_to" autocomplete="off">
+					<option value="None" id="presetTitleTo" class="presetTitle">Select a game to convert to</option>
+					
+					<option value="None" class="presetHeader" disabled>--- Ocarina of Time ---</option>
+					<option value="Ocarina of Time (GC) (NTSC-U) (D43E01)">Ocarina of Time (GC) (NTSC-U) (D43E01)</option>
+					<option value="Ocarina of Time (GC) (PAL) (D43P01)">Ocarina of Time (GC) (PAL) (D43P01)</option>
+					<option value="Ocarina of Time (GC) (NTSC-U) (PZLE01)">Ocarina of Time (GC) (NTSC-U) (PZLE01)</option>
+					<option value="Ocarina of Time (GC) (PAL) (PZLP01)">Ocarina of Time (GC) (PAL) (PZLP01)</option>
+					<option value="Ocarina of Time (VC) (NTSC-U) (NACE01)">Ocarina of Time (VC) (NTSC-U) (NACE01)</option>
+					<option value="Ocarina of Time (VC) (PAL) (NACP01)">Ocarina of Time (VC) (PAL) (NACP01)</option>
+					
+					<option value="None" class="presetHeader" disabled>--- Master Quest ---</option>
+					<option value="Master Quest (GC) (NTSC-U) (D43E01)">Master Quest (GC) (NTSC-U) (D43E01)</option>
+					<option value="Master Quest (GC) (PAL) (D43P01)">Master Quest (GC) (PAL) (D43P01)</option>
+					
+					<option value="None" class="presetHeader" disabled>--- Majora's Mask ---</option>
+					<option value="Majora's Mask (GC) (NTSC-U) (PZLE01)">Majora's Mask (GC) (NTSC-U) (PZLE01)</option>
+					<option value="Majora's Mask (GC) (PAL) (PZLP01)">Majora's Mask (GC) (PAL) (PZLP01)</option>
+					<option value="Majora's Mask (VC) (NTSC-U) (NARE01)">Majora's Mask (VC) (NTSC-U) (NARE01)</option>
+					<option value="Majora's Mask (VC) (PAL) (NARP01)">Majora's Mask (VC) (PAL) (NARP01)</option>
+					
+					<option value="None" class="presetHeader" disabled>--- Super Mario 64 ---</option>
+					<option value="Super Mario 64 (VC) (NTSC-U) (NAAE01)">Super Mario 64 (VC) (NTSC-U) (NAAE01)</option>
+					<option value="Super Mario 64 (VC) (PAL) (NAAP01)">Super Mario 64 (VC) (PAL) (NAAP01)</option>
+				</select>
+		
+		<br>
+				
+				<div id="textarea-wrapper">
+					<textarea placeholder="Input..." id="pre_code_textarea" class="textarea_codelines"></textarea>
+					<textarea placeholder="Output..." id="post_code_textarea" class="textarea_codelines"></textarea>
+				</div>
+        
+        <br>
+			
+			</main>
+			
+			<footer>
+				<a title="Mod64+ Discord Channel" target="_blank" href="https://discord.gg/P22GGzz"><svg width="36" height="36" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 24l-5.25-5 .63 2H4.5A2.5 2.5 0 012 18.5v-15A2.5 2.5 0 014.5 1h15A2.5 2.5 0 0122 3.5V24M12 6.8a9.49 9.49 0 00-4.56 1.15c1.03-.92 2.83-1.45 2.83-1.45l-.17-.17a6.29 6.29 0 00-3.22 1.2c-1.72 3.59-1.61 6.69-1.61 6.69 1.4 1.81 3.48 1.68 3.48 1.68l.71-.9c-1.25-.27-2.04-1.38-2.04-1.38S9.3 14.9 12 14.9s4.58-1.28 4.58-1.28-.79 1.11-2.04 1.38l.71.9s2.08.13 3.48-1.68c0 0 .11-3.1-1.61-6.69 0 0-1.53-1.17-3.22-1.2l-.17.17s1.8.53 2.83 1.45c0 0-1.88-1.15-4.56-1.15m-2.07 3.79c.65 0 1.18.57 1.17 1.27 0 .69-.52 1.27-1.17 1.27-.64 0-1.16-.58-1.16-1.27 0-.7.51-1.27 1.16-1.27m4.17 0c.65 0 1.17.57 1.17 1.27 0 .69-.52 1.27-1.17 1.27-.64 0-1.16-.58-1.16-1.27 0-.7.51-1.27 1.16-1.27z"/></svg></a><span>Script: <b>Admentus</b>, Design: <b>GhostlyDark</b></span>
+			</footer>
+		
+    </div> <!-- End wrapper -->
+	
+	</body>
+
+</html>

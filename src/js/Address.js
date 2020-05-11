@@ -39,11 +39,15 @@ function Address(hex) {   // Start Dynamic Class: Address
     // Getters
     this.getComplete = function() {   // Start Method: getComplete
         
-        str = hexadecimal;
-        while (str.length < 8)
-            str = "0" + str;
+        var ct = self.getCodeType();
+        if (self.getCodeType().length != 2)
+            ct = "0" + ct;
         
-        return str.toString(16);
+        var s = self.getRam();
+        while (s.length < 6)
+            s = "0" + s;
+        
+        return ct.toString(16) + s.toString(16);
     
     }; // End Method: getComplete
     

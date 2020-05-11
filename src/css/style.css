@@ -7,13 +7,18 @@
 :lang(en) :lang(de),:lang(en) :lang(sv),:lang(en) :lang(nl),
 :lang(de) :lang(en),:lang(de) :lang(sv),:lang(de) :lang(nl),
 :lang(sv) :lang(de),:lang(sv) :lang(en),:lang(sv) :lang(nl),
-:lang(nl) :lang(de),:lang(nl) :lang(en),:lang(nl) :lang(sv)
-{
+:lang(nl) :lang(de),:lang(nl) :lang(en),:lang(nl) :lang(sv) {
 	display:				none;
 }
 
+@keyframes fadeIn{from{opacity:.001}to{opacity:1}}
+body{opacity:.001;animation:fadeIn .3s cubic-bezier(.4,0,.22,1) 1 forwards}
+
 body {
 	margin:					0;
+	margin-left:			auto;
+	margin-right:			auto;
+	max-width:				950px;
 	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1);
 }
 
@@ -26,6 +31,18 @@ a, select {
 	-webkit-focus-ring-color:rgba(0,0,0,0);
 }
 
+header {
+    position:               fixed;
+    width:                  100%;
+    right:                  0%;
+    top:					0;
+	z-index:				1;
+}
+
+.mobile {
+	display:				none;
+}
+
 textarea {
 	outline:				0;
 	border:					2px dashed #333;
@@ -35,8 +52,39 @@ textarea {
 	cursor:					default;
 	height:					500px;
 	width:					40%;
-	text-transform:			uppercase;
 	resize:					none;
+	font-size:				15px;
+}
+
+.textarea_codelines {
+	text-transform:			uppercase;
+	font-family:			monospace;
+}
+
+#wrapper-top{
+	position:				fixed;
+	top:					0;
+	z-index:				2;
+}
+
+#wrapper-bottom{
+	position:				fixed;
+	bottom:					15px;
+	max-width:				950px;
+	width:					100%;
+}
+
+#back{
+	position:				absolute;
+	background:				rgba(50,100,200,.95);
+	padding:				5px 5px 0 5px;
+	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1);
+	border-radius:			3px;
+	z-index:				2;
+}
+
+#back:hover {
+	background:				rgb(30,80,180);
 }
 
 #search_bar{
@@ -47,12 +95,14 @@ textarea {
 	font-size:				16px;
 	max-width:				160px;
 	width:					100%;
+	margin-bottom:			10px;
+	margin-left:			10px;
 }
 
 #select_bar{
     max-width:				360px;
 	display:				block;
-	margin:					-5px auto -10px auto;
+	margin:					5px auto -5px auto;
 }
 
 #search_icon{
@@ -71,6 +121,7 @@ textarea {
 	font-size:				20px;
 	border-radius:			50%;
 	float:					right;
+	margin-right:			5px;
 }
 
 textarea:hover {
@@ -96,6 +147,9 @@ textarea:focus {
 	textarea:nth-child(2){
 		margin-top: 		10px;
 	}
+	.mobile {
+	display:				inline-block;
+	}
 }
 
 #wrapper {
@@ -106,11 +160,15 @@ textarea:focus {
 
 #textarea-wrapper {
 	text-align:				center;
-	margin-top:				10px;
+	margin-top:				20px;
 }
 
 #buttons{
-	margin:					10px 0;
+	margin-top:				80px;
+}
+
+#buttons > a{
+	line-height:			70px;
 }
 
 #buttons > a, .drop-button {
@@ -141,22 +199,22 @@ textarea:focus {
 }
 
 .dropdown {
-	position: relative;
-	display: inline-block;
+	position:				relative;
+	display:				inline-block;
 }
 
 #dropdown_language {
-	transition: visibility 0s .3s,opacity .3s cubic-bezier(.4,0,.22,1);
-	visibility: hidden;
-	opacity: .001;
-	position: absolute;
-	left: 25px;
-	top: 55px;
-	background-color: #f1f1f1;
-	min-width: 140px;
-	z-index: 1;
-	text-align: left;
-	font-size:18px;
+	transition:				visibility 0s .3s,opacity .3s cubic-bezier(.4,0,.22,1);
+	visibility:				hidden;
+	opacity:				.001;
+	position:				absolute;
+	left:					25px;
+	top:					55px;
+	background-color:		#F1F1F1;
+	min-width:				140px;
+	z-index:				1;
+	text-align:				left;
+	font-size:				18px;
 }
 
 #dropdown_language a {
@@ -169,13 +227,13 @@ textarea:focus {
 }
 
 #dropdown_language a:hover {
-	background-color:		#DDD
+	background-color:		#DDD;
 }
 
 #dropdown_language.show {
 	visibility:				visible;
 	opacity:				1;
-	transition-delay:		0s
+	transition-delay:		0s;
 }
 
 #change_language svg, #dark_mode svg {
@@ -185,17 +243,23 @@ textarea:focus {
 #offset_button {
 	font-size:				18px;
 	cursor:					pointer;
-	background:				rgb(50, 100, 200);
+	background:				rgba(50,100,200,.95);
 	color:					#FFF;
-	padding:				12px;
-	position:				fixed;
-	bottom:					15px;
+	padding:				10px 10px 5px 10px;
+	position:				absolute;
+	bottom:					0;
 	right:					15px;
 	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1);
+	border-radius:			3px;
+	z-index:				2;
 }
 
 #offset_button:hover {
-	background:				rgb(30, 80, 180);
+	background:				rgb(30,80,180);
+}
+
+#offset_button svg {
+	fill:					#fff;
 }
 
 .swap_space {
@@ -241,11 +305,12 @@ h1 {
 	background:				rgb(50, 100, 200);
 	padding:				10px;
 	margin:					0 auto;
-	max-width:				950px;
+	max-width:				930px;
 }
 
 main {
 	text-align:				center;
+	display:				block;
 }
 
 #buttons a, .swap_space, #swap_select {
@@ -258,6 +323,7 @@ main {
 [type='text'] {
 	cursor:					pointer;
 	border:					2px solid #333;
+	border-radius:			3px;
 	outline:				0;
 	padding:				5px;
 	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1), border-color .3s cubic-bezier(.4, 0, .22, 1);
@@ -282,6 +348,7 @@ main {
 
 #offset_div div {
 	margin-bottom:			20px;
+	line-height:			50px;
 }
 
 #offset_div span:first-child {
@@ -351,10 +418,53 @@ footer {
 	background:				#EEE;
 	padding:				10px;
 	text-align:				center;
-	margin:					0 auto 15px auto;
+	margin:					10px auto 15px auto;
 	max-width:				400px;
 	transition:				background-color .3s cubic-bezier(.4, 0, .22, 1);
 }
+
+footer svg {
+	position:				relative;
+	top:					2px;
+}
+
+footer span {
+	position:				relative;
+	top:					-10px;
+	margin-left:			13px;
+}
+
+::placeholder{
+	color:					#666;
+}
+
+::-moz-selection {
+	background:				#ccc;
+	color:					#000;
+}
+
+::selection {
+	background:				rgba(200,200,200,.8);
+	color:					#000;
+}
+
+::selection:window-inactive {
+	background:				rgba(240,240,240,.8);
+	color:					#000;
+}
+
+@media (max-width:605px){
+	footer {
+		margin-bottom:		90px;
+	}
+}
+
+@media (min-width:1000px){
+	#offset_button {
+		right:				-15px;
+	}
+}
+
 
 @font-face {
 	font-family:			'Play';
@@ -432,6 +542,10 @@ footer {
 	color:					#FFF;
 }
 
+.dark footer svg {
+	fill:					#fff;
+}
+
 .dark select {
 	background:				url(../svg/arrow-down-dark.svg) no-repeat 99% #222;
 	color:					#FFF;
@@ -442,7 +556,7 @@ footer {
 }
 
 .dark option {
-	background:				#121212
+	background:				#121212;
 }
 
 .dark select option[value="None"] {
@@ -458,14 +572,34 @@ footer {
 	background:				#121212;
 }
 
-.dark #offset_div span {
+.dark #offset_div span:first-child {
 	color:					#AAA;
 }
 
 .dark #dropdown_language a {
-	background-color:		#222
+	background-color:		#222;
 }
 
 .dark #dropdown_language a:hover {
-	background-color:		#333
+	background-color:		#333;
+}
+
+.dark ::placeholder{
+	color:					#AAA;
+}
+
+.dark ::-moz-selection {
+	background:				#444;
+	color:					#fff;
+}
+
+.dark ::selection {
+	background:				rgba(60,60,60,.8);
+	color:					#fff;
+	border-color:			#fff;
+}
+
+.dark ::selection:window-inactive {
+	background:				rgba(120,120,120,.8);
+	color:					#fff;
 }
