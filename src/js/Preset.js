@@ -617,18 +617,19 @@ function us_ootGC_to_pal_regOotGC(swapSpace) {   // Start Function: us_ootGC_to_
 // Ocarina of Time (GC) (NTSC-U) (PZLE01) -> Ocarina of Time (GC) (PAL) (PZLP01)
 function us_ootGC_to_pal_ootGC(swapSpace) {   // Start Function: us_ootGC_to_pal_ootGC
     
+    Preset.addOffset("47838", "80E65000", "80E65FFF");
+    Preset.addOffset("48640", "80CA7000", "80CA7FFF");
     Preset.addOffset("47640", "80C80000", "80E6FFFF");
     Preset.addOffset("47650", "80BE0000", "80BEFFFF");
+    Preset.addOffset("477C0", "80BA0000", "80BBFFFF");
     Preset.addOffset("49F10", "80B50000", "80B6FFFF");
     Preset.addOffset("49E10", "80B40000", "80B4FFFF");
-    Preset.addOffset("49D40", "80B30000", "80B3FFFF");
+    Preset.addOffset("49E04", "80B38BE2", "80B38FFF");
+    Preset.addOffset("49D40", "80B38000", "80B3FFFF");
+    Preset.addOffset("49DF0", "80B2A000", "80B37FFF");
     Preset.addOffset("49E44", "80AE0000", "80AEFFFF");
     Preset.addOffset("49E40", "80AC0000", "80ACFFFF");
     Preset.addOffset("49E00", "80130000", "8013FFFF");
-    
-    
-    
-    
     
     for (var i=0; i<swapSpace.length; i++)
         swapSpace[i].setAttribute("data-value", "off");
@@ -660,6 +661,7 @@ function us_ootGC_to_us_mqOotGC(swapSpace) {   // Start Function: us_ootGC_to_us
     
     Preset.addOffset("1540", "80C9EA00", "80FFFFFF");
     Preset.addOffset("1560", "80BDEA00", "80C9E9FF");
+    Preset.addOffset("-1D20", "80134000", "80134FFF");
     
     for (i=0; i<swapSpace.length; i++)
         swapSpace[i].setAttribute("data-value", "off");

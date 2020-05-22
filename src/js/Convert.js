@@ -214,7 +214,9 @@ var Convert = {   // Start Static Class: Convert
             var ram_string = ram[i].getComplete();
             var ram_value_string = ram_value[i].getComplete();
             
-            Convert.post_code_textarea.value += ram_string + " " + ram_value_string + "\r";
+            Convert.post_code_textarea.value += ram_string + " " + ram_value_string;
+            if (i < pre_code.length-1)
+                Convert.post_code_textarea.value += "\r";
             
         }
         
