@@ -1,0 +1,17 @@
+{
+	"short_name":"CC",
+	"name":"Cheat Converter",
+	"icons":[
+		{
+			"src": "src/img/icon-cc.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"density": "1.0"
+		}
+	],
+	"start_url": "cheat-converter.htm",
+	"display": "standalone",
+	"orientation": "portrait",
+	"theme_color": "#3264C8",
+	"background_color": "#3264C8"
+}

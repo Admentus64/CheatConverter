@@ -96,24 +96,13 @@ var Convert = {   // Start Static Class: Convert
         
     }, // End Function: addOffset
     
-    
-    
     removeOffset: function() {   // Start Function: removeOffset
         
 		var remove = document.getElementById('offset_div').lastChild;
-        if (document.getElementById("offset_div").getElementsByTagName("div").length > 0)
+        if (document.getElementById("offset_div").getElementsByTagName("div").length > 1)
             remove.parentNode.removeChild(remove);
         
     }, // End Function: removeOffset
-    
-    
-    
-    removeAllOffsets: function() {   // Start Function: removeAllOffsets
-        
-		while (document.getElementById("offset_div").getElementsByTagName("div").length > 0)
-            Convert.removeOffset();
-        
-    }, // End Function: removeAllOffsets
     
     
     
@@ -214,9 +203,7 @@ var Convert = {   // Start Static Class: Convert
             var ram_string = ram[i].getComplete();
             var ram_value_string = ram_value[i].getComplete();
             
-            Convert.post_code_textarea.value += ram_string + " " + ram_value_string;
-            if (i < pre_code.length-1)
-                Convert.post_code_textarea.value += "\r";
+            Convert.post_code_textarea.value += ram_string + " " + ram_value_string + "\r";
             
         }
         
